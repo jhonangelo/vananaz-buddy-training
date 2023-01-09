@@ -12,6 +12,7 @@ const StyledLabel = styled.label`
   font-weight: 400;
   font-size: 14px;
   text-align: left;
+  margin-bottom: 11px;
 `;
 
 const InputContainer = styled.div<Props>`
@@ -19,7 +20,6 @@ const InputContainer = styled.div<Props>`
   background: white;
   width: 260px;
   height: 32px;
-  margin-top: 11px;
   border: solid 1px #828282;
   border-radius: 4px;
   align-items: center;
@@ -68,7 +68,7 @@ const Component = ({
 }: Props): React.ReactElement => {
   return (
     <StyledDiv>
-      <StyledLabel>{label}</StyledLabel>
+      {label && <StyledLabel>{label}</StyledLabel>}
       <InputContainer>
         <TextInput type={inputType} />
         {clearOption && (
