@@ -9,11 +9,11 @@ export default {
   title: 'atoms/Input',
   component: Input,
   argTypes: {
-    inputType: {
+    type: {
       options: ['text', 'password'],
       control: { type: 'radio' },
     },
-    clearOption: {
+    hasClearButton: {
       option: [true, false],
       control: 'boolean',
     },
@@ -25,7 +25,7 @@ const Template: Story<Props> = (args: Props) => <Input {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   label: 'Login',
-  inputType: 'text',
+  type: 'text',
   hasClearButton: false,
   onChange: action('input-text-changed'),
 };

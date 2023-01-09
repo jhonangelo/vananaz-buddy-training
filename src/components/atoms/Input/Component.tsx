@@ -56,21 +56,21 @@ const IconWrapper = styled.button`
 
 export type Props = {
   label?: string;
-  inputType?: string;
+  type?: 'text' | 'email' | 'password';
   hasClearButton?: boolean;
   onChange?: () => void;
 };
 
 const Component = ({
   label,
-  inputType,
+  type,
   hasClearButton,
 }: Props): React.ReactElement => {
   return (
     <StyledDiv>
       {label && <StyledLabel>{label}</StyledLabel>}
       <InputContainer>
-        <TextInput type={inputType} />
+        <TextInput type={type} />
         {hasClearButton && (
           <IconWrapper>
             <Delete />
