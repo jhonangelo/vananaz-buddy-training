@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Button } from './components/atoms/Button';
 import { Input } from './components/atoms/Input';
+import { SearchInput } from './components/atoms/SearchInput';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Button label={'No'} buttonType='warning' />
       <Input label={'Email'} inputType={'text'} />
       <Input label={'Password'} inputType={'password'} clearOption />
+      <SearchInput />
     </div>
   );
 }
