@@ -26,6 +26,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   label: 'Login',
   inputType: 'text',
-  clearOption: false,
+  hasClearButton: false,
   onChange: action('input-text-changed'),
 };
