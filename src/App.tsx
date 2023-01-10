@@ -4,6 +4,7 @@ import { Button } from './components/atoms/Button';
 import { Input } from './components/atoms/Input';
 import { SearchInput } from './components/atoms/SearchInput';
 import { TextLink } from './components/atoms/TextLink';
+import { RoundedIconBtn } from './components/atoms/RoundedIconBtn';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Input label={'Password'} type={'password'} hasClearButton />
       <SearchInput />
       <TextLink text={'Add your first to do'} linkTo={'abc.com'} />
+      <RoundedIconBtn />
     </div>
   );
 }
