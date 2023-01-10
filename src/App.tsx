@@ -5,6 +5,7 @@ import { Input } from './components/atoms/Input';
 import { SearchInput } from './components/atoms/SearchInput';
 import { TextLink } from './components/atoms/TextLink';
 import { RoundedIconBtn } from './components/atoms/RoundedIconBtn';
+import { ToastNotification } from './components/atoms/ToastNotification';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <SearchInput />
       <TextLink text={'Add your first to do'} linkTo={'abc.com'} />
       <RoundedIconBtn />
+      <ToastNotification message='To do saved' />
     </div>
   );
 }
