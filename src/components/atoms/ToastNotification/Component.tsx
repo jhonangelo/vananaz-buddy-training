@@ -23,6 +23,7 @@ const Component = ({ duration, position }: Props): React.ReactElement => {
           background: '#6FCF97',
           color: '#262626',
           minWidth: '120px',
+          height: '32px',
           fontSize: '14px',
         },
         position: position,

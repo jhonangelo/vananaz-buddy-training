@@ -1,8 +1,19 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import styled from 'styled-components';
 
 import { ToastNotification } from '.';
 import { Props, showToast } from './Component';
+
+const Button = styled.button`
+  background: #6fcf97;
+  width: 120px;
+  height: 32px;
+  font-size: 14px;
+  color: '#262626';
+  border: none;
+  border-radius: 4px;
+`;
 
 export default {
   title: 'atoms/ToastNotification',
@@ -24,10 +35,10 @@ export default {
 
 const Template: Story<Props> = (args: Props) => {
   return (
-    <div>
-      <button onClick={() => showToast('To do saved')}>Trigger</button>
+    <>
+      <Button onClick={() => showToast('To do saved')}>Open toast</Button>
       <ToastNotification {...args} />
-    </div>
+    </>
   );
 };
 
