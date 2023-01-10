@@ -1,21 +1,34 @@
 import React from 'react';
-import styled from 'styled-components';
+import toast, { Toaster } from 'react-hot-toast';
 
-const Toast = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 32px;
-  background-color: #6fcf97;
-  border-radius: 4px;
-  color: #262626;
-`;
+export type Props = {
+  duration?: number;
+  position?:
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right';
+};
 
-export type Props = { message?: string };
+export const showToast = (message: string) => toast(message);
 
-const Component = ({ message }: Props): React.ReactElement => {
-  return <Toast>{message}</Toast>;
+const Component = ({ duration, position }: Props): React.ReactElement => {
+  return (
+    <Toaster
+      toastOptions={{
+        duration: duration,
+        style: {
+          background: '#6FCF97',
+          color: '#262626',
+          minWidth: '120px',
+          fontSize: '14px',
+        },
+        position: position,
+      }}
+    />
+  );
 };
 
 export default Component;
