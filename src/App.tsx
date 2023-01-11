@@ -34,7 +34,10 @@ function App() {
         Open Modal
       </button>
       <Modal header='Delete to do?' isOpen={isOpen} closeModal={closeModal} />
-      <KebabMenu />
+      <KebabMenu
+        handleUpdate={() => console.log('abc')}
+        handleDelete={() => console.log('new')}
+      />
     </div>
   );
 }

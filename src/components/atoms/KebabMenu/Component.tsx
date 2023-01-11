@@ -25,36 +25,62 @@ const Button = styled.button`
   line-height: 16px;
 
   &:focus {
-    outline: red;
+    outline: none;
   }
 `;
 
-const KebabButton = styled(Kebab)<Props>`
+const KebabButton = styled(Kebab)<{ isActive: boolean }>`
   cursor: pointer;
   circle {
-    ${(props) => (props.isActive ? `fill: #2F80ED;` : `fill:#C4C4C4`)}
+    fill: ${(props) => (props.isActive ? '#2F80ED' : '#C4C4C4')};
   }
 `;
 
-export type Props = { isActive?: boolean };
+export type Props = {
+  handleUpdate: () => void;
+  handleDelete: () => void;
+};
 
-const Component = (args: Props): React.ReactElement => {
+const Component = ({
+  handleUpdate,
+  handleDelete,
+}: Props): React.ReactElement => {
   const [isActive, setActive] = useState(false);
+  const closeModal = () => setActive(false);
+
+  const updateTodo = () => {
+    handleUpdate();
+    closeModal();
+  };
+
+  const deleteTodo = () => {
+    handleDelete();
+    closeModal();
+  };
   return (
-    <Popup
-      trigger={<KebabButton isActive={isActive} />}
-      position='left top'
-      on='click'
-      arrow={false}
-      closeOnDocumentClick
-      onOpen={() => setActive(true)}
-      onClose={() => setActive(false)}
-    >
-      <PopupMenu>
-        <Button>Update</Button>
-        <Button>Delete</Button>
-      </PopupMenu>
-    </Popup>
+    <>
+      <Popup
+        trigger={
+          <KebabButton
+            isActive={isActive}
+            onClick={() => setActive((preState) => !preState)}
+          />
+        }
+        open={isActive}
+        position='left top'
+        on='click'
+        closeOnDocumentClick
+        contentStyle={{ padding: '0px', border: 'none' }}
+        arrow={false}
+        onOpen={() => setActive(true)}
+        onClose={() => setActive(false)}
+      >
+        <PopupMenu>
+          <Button onClick={updateTodo}>Update</Button>
+          <Button onClick={deleteTodo}>Delete</Button>
+        </PopupMenu>
+      </Popup>
+    </>
   );
 };
 
