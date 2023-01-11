@@ -58,29 +58,27 @@ const Component = ({
     closeModal();
   };
   return (
-    <>
-      <Popup
-        trigger={
-          <KebabButton
-            isActive={isActive}
-            onClick={() => setActive((preState) => !preState)}
-          />
-        }
-        open={isActive}
-        position='left top'
-        on='click'
-        closeOnDocumentClick
-        contentStyle={{ padding: '0px', border: 'none' }}
-        arrow={false}
-        onOpen={() => setActive(true)}
-        onClose={() => setActive(false)}
-      >
-        <PopupMenu>
-          <Button onClick={updateTodo}>Update</Button>
-          <Button onClick={deleteTodo}>Delete</Button>
-        </PopupMenu>
-      </Popup>
-    </>
+    <Popup
+      trigger={
+        <KebabButton
+          isActive={isActive}
+          onClick={() => setActive((preState) => !preState)}
+        />
+      }
+      open={isActive}
+      position='left top'
+      on='click'
+      closeOnDocumentClick
+      contentStyle={{ padding: '0px', border: 'none' }}
+      arrow={false}
+      onOpen={() => setActive(true)}
+      onClose={() => setActive(false)}
+    >
+      <PopupMenu>
+        <Button onClick={updateTodo}>Update</Button>
+        <Button onClick={deleteTodo}>Delete</Button>
+      </PopupMenu>
+    </Popup>
   );
 };
 
