@@ -7,6 +7,7 @@ import { TextLink } from './components/atoms/TextLink';
 import { RoundedIconBtn } from './components/atoms/RoundedIconBtn';
 import { ToastNotification } from './components/atoms/ToastNotification';
 import { showToast } from './components/atoms/ToastNotification/Component';
+import { TodoItem } from './components/atoms/TodoItem';
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
       <RoundedIconBtn />
       <button onClick={() => showToast('Todo saved')}>Toast trigger</button>
       <ToastNotification duration={3000} position='top-right' />
+      <TodoItem text='Test Todo Item' />
+      <TodoItem text='Test Todo Item' isDone />
+      <TodoItem text='Test Todo Item' isUpdating />
+      <TodoItem text='Test Todo Item' isToBeDeleted />
     </div>
   );
 }
