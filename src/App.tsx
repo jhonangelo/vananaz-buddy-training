@@ -9,6 +9,7 @@ import { ToastNotification } from './components/atoms/ToastNotification';
 import { showToast } from './components/atoms/ToastNotification/Component';
 import { TodoItem } from './components/atoms/TodoItem';
 import { Modal } from './components/atoms/Modal';
+import { KebabMenu } from './components/atoms/KebabMenu';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
@@ -33,6 +34,7 @@ function App() {
         Open Modal
       </button>
       <Modal header='Delete to do?' isOpen={isOpen} closeModal={closeModal} />
+      <KebabMenu />
     </div>
   );
 }
