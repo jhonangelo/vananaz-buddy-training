@@ -1,0 +1,54 @@
+import React from 'react';
+import Popup from 'reactjs-popup';
+import styled from 'styled-components';
+
+const StyledPopup = styled(Popup)`
+  &-overlay {
+    inset: auto auto 0 auto !important;
+    background: #eef3f7;
+    width: 100%;
+    height: 120px;
+    box-shadow: 0px, 4px, 4px, rgba(0, 0, 0, 0.1);
+    position: fixed;
+  }
+  &-content {
+    width: 100%;
+    padding-inline: 39px;
+  }
+`;
+
+const ModalHeader = styled.div`
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 18px;
+`;
+
+export type Props = {
+  isOpen?: boolean;
+  closeModal: () => void;
+  header?: string;
+  children?: React.ReactNode;
+};
+
+const Component = ({
+  isOpen,
+  closeModal,
+  header,
+  children,
+}: Props): React.ReactElement => {
+  return (
+    <StyledPopup
+      open={isOpen}
+      onClose={closeModal}
+      modal
+      closeOnDocumentClick
+      position={'bottom center'}
+    >
+      {header && <ModalHeader>{header}</ModalHeader>}
+      {children}
+    </StyledPopup>
+  );
+};
+export default Component;

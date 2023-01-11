@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Button } from './components/atoms/Button';
 import { Input } from './components/atoms/Input';
@@ -8,8 +8,11 @@ import { RoundedIconBtn } from './components/atoms/RoundedIconBtn';
 import { ToastNotification } from './components/atoms/ToastNotification';
 import { showToast } from './components/atoms/ToastNotification/Component';
 import { TodoItem } from './components/atoms/TodoItem';
+import { Modal } from './components/atoms/Modal';
 
 function App() {
+  const [isOpen, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   return (
     <div className='App'>
       <Button label={'Login'} buttonType='primary' />
@@ -26,6 +29,10 @@ function App() {
       <TodoItem text='Test Todo Item' isDone />
       <TodoItem text='Test Todo Item' isUpdating />
       <TodoItem text='Test Todo Item' isToBeDeleted />
+      <button onClick={() => setOpen((prevState) => !prevState)}>
+        Open Modal
+      </button>
+      <Modal header='Delete to do?' isOpen={isOpen} closeModal={closeModal} />
     </div>
   );
 }
