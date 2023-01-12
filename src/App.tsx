@@ -1,13 +1,8 @@
 import React from 'react';
 import './App.css';
-import { TodoListItem } from './components/molecule/TodoListItem';
 
 function App() {
-  return (
-    <div className='App'>
-      <TodoListItem text='Test todo' />
-    </div>
-  );
+  return <div className='App'></div>;
 }
 
 export default App;
