@@ -8,9 +8,6 @@ import { Button } from '../../atoms/Button';
 export default {
   title: 'molecules/DeleteModal',
   component: DeleteModal,
-  parameters: {
-    layout: 'centered',
-  },
   argTypes: {
     isOpen: {
       control: 'boolean',
