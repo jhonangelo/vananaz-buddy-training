@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 import { ReactComponent as SearchIcon } from './Icons/search.svg';
 
 const SearchContainer = styled.button`
   display: flex;
-  background: #ffffff;
+  background: ${theme.colors.white};
   width: 224px;
   height: 32px;
-  border: 1px solid #828282;
+  border: 1px solid ${theme.colors.gray3};
   border-radius: 4px;
   align-items: center;
   cursor: pointer;

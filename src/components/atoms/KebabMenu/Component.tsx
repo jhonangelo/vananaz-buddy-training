@@ -1,6 +1,7 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 import { ReactComponent as Kebab } from './Icons/kebab.svg';
 
 const PopupMenu = styled.div`
@@ -32,7 +33,7 @@ const Button = styled.button`
 const KebabButton = styled(Kebab)<{ isOpen: boolean }>`
   cursor: pointer;
   circle {
-    fill: ${(props) => (props.isOpen ? '#2F80ED' : '#C4C4C4')};
+    fill: ${(props) => (props.isOpen ? `${theme.colors.blue1}` : '#C4C4C4')};
   }
 `;
 

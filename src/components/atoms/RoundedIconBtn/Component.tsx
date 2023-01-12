@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 
 const RoundedIcon = styled.button`
   display: flex;
@@ -7,7 +8,7 @@ const RoundedIcon = styled.button`
   height: 40px;
   border-radius: 50%;
   border: 0;
-  background-color: #2f80ed;
+  background-color: ${theme.colors.blue1};
   color: white;
   justify-content: center;
   align-items: center;
