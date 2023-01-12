@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 
 const Link = styled.a`
   text-decoration: none;
   font-weight: 400;
   font-size: 14px;
-  color: #2f80ed;
+  color: ${theme.colors.blue1};
 `;
 
 export type Props = { text?: string; linkTo?: string };

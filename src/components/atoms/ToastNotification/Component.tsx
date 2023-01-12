@@ -1,5 +1,6 @@
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import theme from '../../../constants/themes';
 
 export type Props = {
   duration?: number;
@@ -20,8 +21,8 @@ const Component = ({ duration, position }: Props): React.ReactElement => {
       toastOptions={{
         duration: duration,
         style: {
-          background: '#6FCF97',
-          color: '#262626',
+          background: `${theme.colors.green3}`,
+          color: `${theme.colors.gray9}`,
           minWidth: '120px',
           height: '32px',
           fontSize: '14px',

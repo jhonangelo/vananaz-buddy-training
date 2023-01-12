@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 import { TodoItem } from '../../atoms/TodoItem';
 import CheckIcon from './Icons/check.svg';
 
@@ -15,7 +16,7 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   background: none;
   border-radius: 50%;
   vertical-align: middle;
-  border: 1px solid #828282;
+  border: 1px solid ${theme.colors.gray3};
   appearance: none;
   -webkit-appearance: none;
   outline: none;
@@ -26,7 +27,7 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     background: url(${CheckIcon});
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #6fcf97;
+    background-color: ${theme.colors.green3};
   }
 `;
 

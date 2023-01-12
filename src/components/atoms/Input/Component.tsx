@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 import { ReactComponent as Delete } from './Icons/delete.svg';
 
 const StyledDiv = styled.div`
@@ -8,7 +9,7 @@ const StyledDiv = styled.div`
 `;
 
 const StyledLabel = styled.label`
-  color: #828282;
+  color: ${theme.colors.gray3};
   font-weight: 400;
   font-size: 14px;
   text-align: left;
@@ -17,16 +18,16 @@ const StyledLabel = styled.label`
 
 const InputContainer = styled.div<Props>`
   display: flex;
-  background: white;
+  background: ${theme.colors.white};
   width: 260px;
   height: 32px;
-  border: solid 1px #828282;
+  border: solid 1px ${theme.colors.gray3};
   border-radius: 4px;
   align-items: center;
   justify-content: space-between;
 
   &:focus-within {
-    outline: 2px solid #2f80ed;
+    outline: 2px solid ${theme.colors.blue1};
   }
 `;
 
@@ -47,7 +48,7 @@ const IconWrapper = styled.button`
   width: 20px;
   height: 20px;
   align-items: center;
-  background-color: #828282;
+  background-color: ${theme.colors.gray3};
   border: 0;
   border-radius: 50%;
   cursor: pointer;

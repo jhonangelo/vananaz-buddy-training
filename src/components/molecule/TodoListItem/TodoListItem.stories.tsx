@@ -6,7 +6,7 @@ import { Props } from './Component';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'atoms/TodoListItem',
+  title: 'molecules/TodoListItem',
   component: TodoListItem,
   argTypes: {
     text: { control: 'text' },

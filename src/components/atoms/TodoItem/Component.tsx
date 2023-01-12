@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../constants/themes';
 
 const TodoItem = styled.p<Props>`
-  color: #333333;
+  color: ${theme.colors.gray1};
   font-weight: 400;
   font-size: 14px;
   text-align: left;
