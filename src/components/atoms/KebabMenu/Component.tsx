@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Popup from 'reactjs-popup';
 import styled from 'styled-components';
 import { ReactComponent as Kebab } from './Icons/kebab.svg';
@@ -29,50 +29,52 @@ const Button = styled.button`
   }
 `;
 
-const KebabButton = styled(Kebab)<{ isActive: boolean }>`
+const KebabButton = styled(Kebab)<{ isOpen: boolean }>`
   cursor: pointer;
   circle {
-    fill: ${(props) => (props.isActive ? '#2F80ED' : '#C4C4C4')};
+    fill: ${(props) => (props.isOpen ? '#2F80ED' : '#C4C4C4')};
   }
 `;
 
 export type Props = {
+  isOpen: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeMenu: () => void;
   handleUpdate: () => void;
   handleDelete: () => void;
 };
 
 const Component = ({
+  isOpen,
+  setIsMenuOpen,
+  closeMenu,
   handleUpdate,
   handleDelete,
 }: Props): React.ReactElement => {
-  const [isActive, setActive] = useState(false);
-  const closeModal = () => setActive(false);
-
   const updateTodo = () => {
     handleUpdate();
-    closeModal();
+    closeMenu();
   };
-
   const deleteTodo = () => {
     handleDelete();
-    closeModal();
+    closeMenu();
   };
   return (
     <Popup
       trigger={
         <KebabButton
-          isActive={isActive}
-          onClick={() => setActive((preState) => !preState)}
+          isOpen={isOpen}
+          onClick={() => setIsMenuOpen((preState) => !preState)}
         />
       }
-      open={isActive}
+      open={isOpen}
       position='left top'
       on='click'
       closeOnDocumentClick
       contentStyle={{ padding: '0px', border: 'none' }}
       arrow={false}
-      onOpen={() => setActive(true)}
-      onClose={() => setActive(false)}
+      onOpen={() => setIsMenuOpen(true)}
+      onClose={() => setIsMenuOpen(false)}
     >
       <PopupMenu>
         <Button onClick={updateTodo}>Update</Button>

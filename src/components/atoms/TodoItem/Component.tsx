@@ -6,6 +6,7 @@ const TodoItem = styled.p<Props>`
   font-weight: 400;
   font-size: 14px;
   text-align: left;
+  margin: 0;
 
   ${(props) =>
     props.isUpdating &&
