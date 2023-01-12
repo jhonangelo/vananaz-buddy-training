@@ -9,6 +9,10 @@ const StyledButton = styled.button<Props>`
   align-items: center;
   cursor: pointer;
 
+  &:focus {
+    outline: none;
+  }
+
   ${(props) =>
     props.buttonType === 'primary' &&
     `background: rgba(47, 128, 237, 1);
@@ -32,9 +36,9 @@ const StyledButton = styled.button<Props>`
       font-weight: 400;`}
 
   ${(props) =>
-    props.buttonType === 'warning' &&
-    `background: rgba(252, 224, 224, 1);
-      color: #ED2F2F;
+    props.buttonType === 'modalButton' &&
+    `background: ${props.bgColor};
+      color:  ${props.color};
       width: 80px;
       height: 38px;
       font-size: 14px;
@@ -42,15 +46,16 @@ const StyledButton = styled.button<Props>`
 `;
 
 export type Props = {
-  buttonType?: 'primary' | 'secondary' | 'warning';
+  buttonType?: 'primary' | 'secondary' | 'modalButton';
   label?: string;
+  bgColor?: string;
+  color?: string;
   onClick?: () => void;
 };
 
 const Component = ({
   buttonType,
   label,
-  onClick,
   ...props
 }: Props): React.ReactElement => {
   return (
