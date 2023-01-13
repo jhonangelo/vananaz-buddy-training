@@ -15,20 +15,20 @@ const TodoItem = styled.p<Props>`
   ${(props) =>
     props.isUpdating &&
     `
-    color: #9EB7DA;
+    color: ${theme.colors.blue2};
   `}
 
   ${(props) =>
     props.isToBeDeleted &&
     `
-    color: #E78585;
+    color: ${theme.colors.red1};
   `}
 
   ${(props) =>
     props.isDone &&
     `
     text-decoration: line-through;
-    color: #9EB7DA;
+    color: ${theme.colors.blue2};
     
   `}
 `;
