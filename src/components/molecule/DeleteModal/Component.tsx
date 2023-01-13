@@ -9,6 +9,8 @@ const Controls = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
+  margin-top: 18px;
+  margin-bottom: 17px;
 `;
 
 export type Props = {
