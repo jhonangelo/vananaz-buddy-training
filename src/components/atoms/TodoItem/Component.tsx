@@ -8,6 +8,9 @@ const TodoItem = styled.p<Props>`
   font-size: 14px;
   text-align: left;
   margin: 0;
+  cursor: pointer;
+  border: none;
+  background: none;
 
   ${(props) =>
     props.isUpdating &&
@@ -26,18 +29,24 @@ const TodoItem = styled.p<Props>`
     `
     text-decoration: line-through;
     color: #9EB7DA;
+    
   `}
 `;
 
 export type Props = {
   text?: string;
   isUpdating?: boolean;
+  itemClick?: () => void;
   isToBeDeleted?: boolean;
   isDone?: boolean;
 };
 
-const Component = ({ text, ...props }: Props) => {
-  return <TodoItem {...props}>{text}</TodoItem>;
+const Component = ({ text, itemClick, ...props }: Props) => {
+  return (
+    <TodoItem as='button' onClick={itemClick} {...props}>
+      {text}
+    </TodoItem>
+  );
 };
 
 export default Component;
