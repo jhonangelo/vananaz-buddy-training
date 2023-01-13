@@ -28,7 +28,7 @@ Secondary.args = {
 
 export const Warning = Template.bind({});
 Warning.args = {
-  buttonType: 'warning',
+  buttonType: 'modalButton',
   label: 'No',
   onClick: action('warning-button-click'),
 };
