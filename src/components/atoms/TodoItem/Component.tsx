@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
 
-const TodoItem = styled.p<Props>`
+const TodoItem = styled.p<
+  Pick<Props, 'isUpdating' | 'isToBeDeleted' | 'isDone'>
+>`
   color: ${theme.colors.gray1};
   font-weight: 400;
   font-size: 14px;
