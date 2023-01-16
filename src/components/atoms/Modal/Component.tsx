@@ -30,6 +30,7 @@ export type Props = {
   closeModal: () => void;
   header?: string;
   children?: React.ReactNode;
+  closeOnDocumentClick?: boolean;
 };
 
 const Component = ({
@@ -37,13 +38,14 @@ const Component = ({
   closeModal,
   header,
   children,
+  closeOnDocumentClick,
 }: Props): React.ReactElement => {
   return (
     <StyledPopup
       open={isOpen}
+      closeOnDocumentClick={closeOnDocumentClick}
       onClose={closeModal}
       modal
-      closeOnDocumentClick
       position={'bottom center'}
     >
       {header && <ModalHeader>{header}</ModalHeader>}
