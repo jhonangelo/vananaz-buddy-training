@@ -38,7 +38,7 @@ const Component = ({ text, onCheck }: Props) => {
 
   const handleCheck = () => {
     setIsChecked((prevState) => !prevState);
-    !isChecked && onCheck();
+    onCheck();
   };
   return (
     <CheckboxItem>

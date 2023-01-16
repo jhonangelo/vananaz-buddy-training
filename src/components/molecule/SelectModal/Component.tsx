@@ -28,7 +28,7 @@ const ButtonLink = styled.button`
 
 export type Props = {
   isOpen?: boolean;
-  closeModal: () => void;
+  closeModal?: () => void;
   selectAllHandler: () => void;
   completeSelectedHandler: () => void;
   deleteSelectedHandler: () => void;
@@ -42,7 +42,7 @@ const Component = ({
   deleteSelectedHandler,
 }: Props) => {
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal}>
+    <Modal isOpen={isOpen} closeModal={closeModal} closeOnDocumentClick={false}>
       <Controls>
         <ButtonLink onClick={selectAllHandler}>Select All</ButtonLink>
         <ButtonLink onClick={completeSelectedHandler}>
