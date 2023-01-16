@@ -51,7 +51,6 @@ const Component = ({ data, deleteSelected, completeSelected }: Props) => {
     } else {
       setIsOpen(false);
     }
-    console.log(checkedItems);
   }, [checkedItems]);
   return (
     <SelectListContainer>
@@ -66,8 +65,8 @@ const Component = ({ data, deleteSelected, completeSelected }: Props) => {
       <SelectModal
         isOpen={isOpen}
         selectAllHandler={handleSelectAll}
-        completeSelectedHandler={() => completeSelected}
-        deleteSelectedHandler={() => deleteSelected}
+        completeSelectedHandler={completeSelected}
+        deleteSelectedHandler={deleteSelected}
       />
     </SelectListContainer>
   );
