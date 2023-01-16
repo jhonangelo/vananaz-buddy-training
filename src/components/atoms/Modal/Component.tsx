@@ -27,7 +27,7 @@ const ModalHeader = styled.div`
 
 export type Props = {
   isOpen?: boolean;
-  closeModal: () => void;
+  closeModal?: () => void;
   header?: string;
   children?: React.ReactNode;
   closeOnDocumentClick?: boolean;
