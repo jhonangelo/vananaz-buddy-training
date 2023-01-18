@@ -5,10 +5,11 @@ import { KebabMenu } from '../../atoms/KebabMenu';
 
 const Item = styled.div`
   display: flex;
-  width: 290px;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   padding: 8px 6px 8px 6px;
+  gap: 20px;
 `;
 
 export type Props = {
@@ -16,7 +17,7 @@ export type Props = {
   isDone: boolean;
   isUpdating?: boolean;
   isToBeDeleted?: boolean;
-  itemClick: () => void;
+  itemClick?: () => void;
   handleUpdate: () => void;
   handleDelete: () => void;
 };

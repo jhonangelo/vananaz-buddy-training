@@ -7,6 +7,7 @@ const Link = styled.a`
   font-weight: 400;
   font-size: 14px;
   color: ${theme.colors.blue1};
+  cursor: pointer;
 `;
 
 export type Props = { text?: string; linkTo?: string };

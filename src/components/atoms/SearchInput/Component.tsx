@@ -6,7 +6,7 @@ import { ReactComponent as SearchIcon } from './Icons/search.svg';
 const SearchContainer = styled.button`
   display: flex;
   background: ${theme.colors.white};
-  width: 224px;
+  width: 100%;
   height: 32px;
   border: 1px solid ${theme.colors.gray3};
   border-radius: 4px;
@@ -26,7 +26,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-export type Props = { onClick?: () => void };
+export type Props = { onClick: () => void };
 
 const SearchInput = ({ onClick }: Props): React.ReactElement => {
   return (
