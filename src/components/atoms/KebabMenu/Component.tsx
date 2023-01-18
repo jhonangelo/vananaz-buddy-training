@@ -32,6 +32,7 @@ const Button = styled.button`
 
 const KebabButton = styled(Kebab)<{ isOpen: boolean }>`
   cursor: pointer;
+  min-width: 20px;
   circle {
     fill: ${(props) => (props.isOpen ? `${theme.colors.blue1}` : '#C4C4C4')};
   }
