@@ -7,7 +7,7 @@ import { Button } from '../../atoms/Button';
 import { RoundedIconBtn } from '../../atoms/RoundedIconBtn';
 import { ReactComponent as EmptyIcon } from './Icons/empty.svg';
 import { TextLink } from '../../atoms/TextLink';
-import { TodoList } from '../../organims/TodoList';
+import { TodoList } from '../../organisms/TodoList';
 
 const Container = styled.div`
   position: relative;
@@ -84,6 +84,7 @@ interface Todo {
 
 export type Props = {
   data?: Todo[];
+  homeBtnClick: () => void;
   SearchInputClick: () => void;
   SearchBtnClick: () => void;
   itemClick: () => void;
@@ -94,6 +95,7 @@ export type Props = {
 
 const Component = ({
   data = [],
+  homeBtnClick,
   SearchInputClick,
   SearchBtnClick,
   itemClick,
@@ -105,7 +107,7 @@ const Component = ({
     <Container>
       <Header>
         <AppLogo>ToDoish</AppLogo>
-        <HomeButton />
+        <HomeButton cursor='pointer' onClick={homeBtnClick} />
       </Header>
       <Controls>
         <StyledSeachInput onClick={SearchInputClick} />
