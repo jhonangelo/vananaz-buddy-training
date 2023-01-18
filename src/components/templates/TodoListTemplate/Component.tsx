@@ -66,7 +66,7 @@ const TodoListContainer = styled.div`
 const TodoItemListWrapper = styled.div`
   display: flex;
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
   color: ${theme.colors.gray3};
 `;
 
