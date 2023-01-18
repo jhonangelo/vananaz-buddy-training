@@ -21,6 +21,12 @@ const Header = styled.div`
   column-gap: 13px;
 `;
 
+const BackButton = styled(BackBtn)`
+  cursor: pointer;
+  height: 19px;
+  width: 7px;
+`;
+
 const Label = styled.p`
   font-weight: 700;
   font-size: 16px;
@@ -79,7 +85,7 @@ const Component = ({
   return (
     <Container>
       <Header>
-        <BackBtn cursor='pointer' onClick={backBtnClick} />
+        <BackButton onClick={backBtnClick} />
         <Label>Select to do</Label>
       </Header>
       <SelectItemListWrapper>
