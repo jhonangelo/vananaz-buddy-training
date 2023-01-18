@@ -21,10 +21,6 @@ const Header = styled.div`
   column-gap: 13px;
 `;
 
-const BackButton = styled(BackBtn)`
-  cursor: pointer;
-`;
-
 const Label = styled.p`
   font-weight: 700;
   font-size: 16px;
@@ -47,6 +43,10 @@ const EmptyContainer = styled.div`
 `;
 
 const QuoteMessage = styled.p`
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  font-weight: 400;
   color: ${theme.colors.gray3};
   margin-top: 22px;
   margin-bottom: 13px;
@@ -78,13 +78,13 @@ const Component = ({
 }: Props) => {
   return (
     <Container>
-      <Header className='header'>
-        <BackButton onClick={backBtnClick} />
+      <Header>
+        <BackBtn cursor='pointer' onClick={backBtnClick} />
         <Label>Select to do</Label>
       </Header>
-      <SelectItemListWrapper className='wrapper'>
+      <SelectItemListWrapper>
         {data?.length > 0 ? (
-          <SelectListContainer className='container select'>
+          <SelectListContainer>
             <SelectList
               data={data}
               completeSelected={completeSelected}
@@ -92,7 +92,7 @@ const Component = ({
             />
           </SelectListContainer>
         ) : (
-          <EmptyContainer className='container empty'>
+          <EmptyContainer>
             <EmptyIcon />
             <QuoteMessage>No to do yet</QuoteMessage>
             <TextLink text='Add your first to do' linkTo='' />
