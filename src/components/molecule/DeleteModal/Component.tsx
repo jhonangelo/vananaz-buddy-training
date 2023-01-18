@@ -9,6 +9,8 @@ const Controls = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
+  margin-top: 18px;
+  margin-bottom: 17px;
 `;
 
 export type Props = {
@@ -20,7 +22,12 @@ export type Props = {
 
 const Component = ({ isOpen, closeModal, noBtnClick, yesBtnClick }: Props) => {
   return (
-    <Modal header='Delete to do?' isOpen={isOpen} closeModal={closeModal}>
+    <Modal
+      header='Delete to do?'
+      isOpen={isOpen}
+      closeModal={closeModal}
+      closeOnDocumentClick={true}
+    >
       <Controls>
         <Button
           label='No'

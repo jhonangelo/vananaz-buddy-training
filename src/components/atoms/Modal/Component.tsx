@@ -8,13 +8,12 @@ const StyledPopup = styled(Popup)`
     inset: auto auto 0 auto !important;
     background: ${theme.colors.background};
     width: 100%;
-    height: 120px;
-    box-shadow: 0px, 4px, 4px, rgba(0, 0, 0, 0.1);
+    height: max-content;
+    box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
   }
   &-content {
     width: 100%;
-    padding-inline: 39px;
   }
 `;
 
@@ -23,14 +22,15 @@ const ModalHeader = styled.div`
   color: ${theme.colors.black};
   font-weight: 400;
   text-align: center;
-  margin-bottom: 18px;
+  margin-top: 19px;
 `;
 
 export type Props = {
   isOpen?: boolean;
-  closeModal: () => void;
+  closeModal?: () => void;
   header?: string;
   children?: React.ReactNode;
+  closeOnDocumentClick?: boolean;
 };
 
 const Component = ({
@@ -38,13 +38,14 @@ const Component = ({
   closeModal,
   header,
   children,
+  closeOnDocumentClick,
 }: Props): React.ReactElement => {
   return (
     <StyledPopup
       open={isOpen}
+      closeOnDocumentClick={closeOnDocumentClick}
       onClose={closeModal}
       modal
-      closeOnDocumentClick
       position={'bottom center'}
     >
       {header && <ModalHeader>{header}</ModalHeader>}

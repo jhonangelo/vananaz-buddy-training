@@ -13,26 +13,42 @@ const Item = styled.div`
 
 export type Props = {
   text: string;
-  isDone?: boolean;
+  isDone: boolean;
   isUpdating?: boolean;
   isToBeDeleted?: boolean;
+  itemClick: () => void;
   handleUpdate: () => void;
   handleDelete: () => void;
 };
 
-const Component = ({ text, handleUpdate, handleDelete, ...props }: Props) => {
+const Component = ({
+  text,
+  isDone,
+  itemClick,
+  handleUpdate,
+  handleDelete,
+  ...props
+}: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
   return (
     <Item>
-      <TodoItem text={text} isUpdating={isMenuOpen} {...props} />
-      <KebabMenu
-        isOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        closeMenu={closeMenu}
-        handleUpdate={handleUpdate}
-        handleDelete={handleDelete}
+      <TodoItem
+        itemClick={itemClick}
+        isDone={isDone}
+        text={text}
+        isUpdating={isMenuOpen}
+        {...props}
       />
+      {!isDone && (
+        <KebabMenu
+          isOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          closeMenu={closeMenu}
+          handleUpdate={handleUpdate}
+          handleDelete={handleDelete}
+        />
+      )}
     </Item>
   );
 };
