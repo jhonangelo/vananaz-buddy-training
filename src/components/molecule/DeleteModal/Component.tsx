@@ -22,7 +22,12 @@ export type Props = {
 
 const Component = ({ isOpen, closeModal, noBtnClick, yesBtnClick }: Props) => {
   return (
-    <Modal header='Delete to do?' isOpen={isOpen} closeModal={closeModal}>
+    <Modal
+      header='Delete to do?'
+      isOpen={isOpen}
+      closeModal={closeModal}
+      closeOnDocumentClick={true}
+    >
       <Controls>
         <Button
           label='No'

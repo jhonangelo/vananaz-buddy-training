@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
 import { TodoItem } from '../../atoms/TodoItem';
@@ -31,18 +31,12 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   }
 `;
 
-export type Props = { text?: string; onCheck: () => void };
+export type Props = { text?: string; onCheck: () => void; checked: boolean };
 
-const Component = ({ text, onCheck }: Props) => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheck = () => {
-    setIsChecked((prevState) => !prevState);
-    !isChecked && onCheck();
-  };
+const Component = ({ text, onCheck, checked }: Props) => {
   return (
     <CheckboxItem>
-      <Checkbox checked={isChecked} onChange={handleCheck} />
+      <Checkbox checked={checked} onChange={onCheck} />
       <TodoItem text={text} />
     </CheckboxItem>
   );
