@@ -7,6 +7,7 @@ const StyledButton = styled.button<Props>`
   border: 0;
   justify-content: center;
   align-items: center;
+  padding-inline: 9px;
   cursor: pointer;
 
   &:focus {
