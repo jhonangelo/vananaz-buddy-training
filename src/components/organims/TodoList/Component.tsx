@@ -6,7 +6,8 @@ const ListContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  width: 100%;
 `;
 
 interface Todo {
@@ -16,7 +17,7 @@ interface Todo {
 }
 
 export type Props = {
-  data: Todo[];
+  data?: Todo[];
   itemClick: () => void;
   handleUpdate: () => void;
   handleDelete: () => void;
@@ -26,16 +27,26 @@ const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
   return (
     <ListContainer>
       {data &&
-        data.map((item) => (
-          <TodoListItem
-            key={item.id}
-            isDone={item.isDone}
-            text={item.text}
-            itemClick={itemClick}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-          />
-        ))}
+        data.map((item) =>
+          item.isDone ? (
+            <TodoListItem
+              key={item.id}
+              isDone={item.isDone}
+              text={item.text}
+              handleUpdate={handleUpdate}
+              handleDelete={handleDelete}
+            />
+          ) : (
+            <TodoListItem
+              key={item.id}
+              isDone={item.isDone}
+              text={item.text}
+              itemClick={itemClick}
+              handleUpdate={handleUpdate}
+              handleDelete={handleDelete}
+            />
+          )
+        )}
     </ListContainer>
   );
 };
