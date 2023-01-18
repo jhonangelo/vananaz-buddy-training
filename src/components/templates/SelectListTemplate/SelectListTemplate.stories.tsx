@@ -1,14 +1,14 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { TodoListTemplate } from '.';
+import { SelectListTemplate } from '.';
 import { Props } from './Component';
 import GlobalStyles from '../../../constants/themes/globalStyling';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'templates/TodoList',
-  component: TodoListTemplate,
+  title: 'templates/SelectList',
+  component: SelectListTemplate,
   parameters: {
     layout: 'fullscreen',
     viewport: {
@@ -45,24 +45,23 @@ const Template: Story<Props> = (args: Props) => {
   return (
     <>
       <GlobalStyles />
-      <TodoListTemplate {...args} />
+      <SelectListTemplate {...args} />
     </>
   );
 };
 
 export const withData = Template.bind({});
 withData.args = {
-  data: [{ id: 1, text: 'Get parcel from FBI', isDone: false }],
-  homeBtnClick: action('navigate-home'),
-  SearchInputClick: action('search-list-navigate'),
-  SearchBtnClick: action('search-button-navigate'),
-  itemClick: action('todo-item-click'),
-  handleUpdate: action('update-click'),
-  handleDelete: action('delete-click'),
-  AddTodoBtnClick: action('new-todo-button-click'),
+  data: [{ id: 1, text: 'Get parcel from LBC', isDone: false }],
+  backBtnClick: action('go-back'),
+  deleteSelected: action('selected-todo-deleted'),
+  completeSelected: action('selected-todo-completed'),
 };
 
 export const empty = Template.bind({});
 empty.args = {
   data: [],
+  backBtnClick: action('go-back'),
+  deleteSelected: action('selected-todo-deleted'),
+  completeSelected: action('selected-todo-completed'),
 };
