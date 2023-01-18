@@ -50,8 +50,8 @@ const Template: Story<Props> = (args: Props) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const withData = Template.bind({});
+withData.args = {
   data: [{ id: 1, text: 'Get parcel from FBI', isDone: false }],
   homeBtnClick: action('navigate-home'),
   SearchInputClick: action('search-list-navigate'),
@@ -60,4 +60,9 @@ Default.args = {
   handleUpdate: action('update-click'),
   handleDelete: action('delete-click'),
   AddTodoBtnClick: action('new-todo-button-click'),
+};
+
+export const empty = Template.bind({});
+empty.args = {
+  data: [],
 };

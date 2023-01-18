@@ -54,6 +54,7 @@ const EmptyContainer = styled.div`
 `;
 
 const QuoteMessage = styled.p`
+  color: ${theme.colors.gray3};
   margin-top: 22px;
   margin-bottom: 13px;
 `;
