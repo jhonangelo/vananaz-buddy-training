@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
+import { BackButton } from '../../atoms/BackButton';
 import { TextLink } from '../../atoms/TextLink';
 import { SelectList } from '../../organisms/SelectList';
-import { ReactComponent as BackBtn } from './Icons/back.svg';
 import { ReactComponent as EmptyIcon } from './Icons/empty.svg';
 
 const Container = styled.div`
@@ -12,26 +12,6 @@ const Container = styled.div`
   padding: 16px;
   height: 100vh;
   row-gap: 20px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  column-gap: 13px;
-`;
-
-const BackButton = styled(BackBtn)`
-  cursor: pointer;
-  height: 19px;
-  width: 7px;
-`;
-
-const Label = styled.p`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  color: ${theme.colors.black};
 `;
 
 const SelectListContainer = styled.div`
@@ -84,10 +64,7 @@ const Component = ({
 }: Props) => {
   return (
     <Container>
-      <Header>
-        <BackButton onClick={backBtnClick} />
-        <Label>Select to do</Label>
-      </Header>
+      <BackButton label='Select to do' backBtnClick={backBtnClick} />
       <SelectItemListWrapper>
         {data?.length > 0 ? (
           <SelectListContainer>
