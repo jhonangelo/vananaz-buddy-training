@@ -27,5 +27,5 @@ Primary.args = {
   label: 'Login',
   type: 'text',
   hasClearButton: false,
-  onChange: action('input-text-changed'),
+  formSubmit: action('form-submitted'),
 };

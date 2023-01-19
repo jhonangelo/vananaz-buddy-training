@@ -56,6 +56,7 @@ export type Props = {
   backBtnClick: () => void;
   completeSelected: () => void;
   deleteSelected: () => void;
+  formSubmit: (input: string) => void;
 };
 
 const Component = ({
@@ -63,12 +64,13 @@ const Component = ({
   backBtnClick,
   completeSelected,
   deleteSelected,
+  formSubmit,
 }: Props) => {
   return (
     <Container>
       <BackButton label='Search to do' backBtnClick={backBtnClick} />
       <Controls>
-        <Input hasClearButton />
+        <Input type='text' hasClearButton formSubmit={formSubmit} />
       </Controls>
       <SearchListWrapper>
         {data?.length > 0 ? (
