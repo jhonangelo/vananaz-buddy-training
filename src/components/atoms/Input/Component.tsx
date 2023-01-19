@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
 import { ReactComponent as Delete } from './Icons/delete.svg';
@@ -16,7 +16,7 @@ const StyledLabel = styled.label`
   margin-bottom: 11px;
 `;
 
-const InputContainer = styled.div<Props>`
+const InputContainer = styled.form<Props>`
   display: flex;
   background: ${theme.colors.white};
   width: 100%;
@@ -60,22 +60,33 @@ export type Props = {
   label?: string;
   type?: 'text' | 'email' | 'password';
   hasClearButton?: boolean;
-  onChange?: () => void;
+  formSubmit: (input: string) => void;
 };
 
 const Component = ({
   label,
   type,
   hasClearButton,
+  formSubmit,
 }: Props): React.ReactElement => {
+  const [input, setInput] = useState('');
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    input.length > 0 && formSubmit(input);
+    setInput('');
+  };
   return (
     <StyledDiv>
       {label && <StyledLabel>{label}</StyledLabel>}
-      <InputContainer>
-        <TextInput type={type} />
-        {hasClearButton && (
+      <InputContainer onSubmit={handleSubmit} formSubmit={formSubmit}>
+        <TextInput
+          type={type}
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+        />
+        {hasClearButton && input.length > 0 && (
           <IconWrapper>
-            <Delete />
+            <Delete onClick={() => setInput('')} />
           </IconWrapper>
         )}
       </InputContainer>
