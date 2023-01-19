@@ -19,7 +19,7 @@ const StyledLabel = styled.label`
 const InputContainer = styled.div<Props>`
   display: flex;
   background: ${theme.colors.white};
-  width: 260px;
+  width: 100%;
   height: 32px;
   border: solid 1px ${theme.colors.gray3};
   border-radius: 4px;
@@ -35,7 +35,7 @@ const TextInput = styled.input`
   border: none;
   border-radius: 4px;
   font-size: 14px;
-  width: 100%;
+  flex: 1;
   margin-inline: 12px;
 
   &:focus {
@@ -47,6 +47,7 @@ const IconWrapper = styled.button`
   display: flex;
   width: 20px;
   height: 20px;
+  justify-content: center;
   align-items: center;
   background-color: ${theme.colors.gray3};
   border: 0;
