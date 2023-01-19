@@ -19,7 +19,7 @@ const Controls = styled.div`
 `;
 
 const SearchListWrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 6px;
   flex: 1;
   overflow-y: auto;
 `;
@@ -77,12 +77,14 @@ const Component = ({
             completeSelected={completeSelected}
             deleteSelected={deleteSelected}
           />
-        ) : (
+        ) : data?.length === 0 ? (
           <EmptyContainer>
             <StyledEmptyIcon />
             <QuoteMessage>No to do found.</QuoteMessage>
             <QuoteMessage>Try different keywords.</QuoteMessage>
           </EmptyContainer>
+        ) : (
+          <EmptyContainer></EmptyContainer>
         )}
       </SearchListWrapper>
     </Container>
