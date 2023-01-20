@@ -28,6 +28,5 @@ const Template: Story<Props> = (args: Props) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  backBtnClick: action('go-back'),
   formSubmit: action('add-todo-input'),
 };

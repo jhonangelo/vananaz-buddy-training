@@ -23,12 +23,15 @@ const Label = styled.p`
   color: ${theme.colors.black};
 `;
 
-export type Props = { backBtnClick: () => void; label: string };
+export type Props = { label: string };
 
-const Component = ({ backBtnClick, label }: Props) => {
+const Component = ({ label }: Props) => {
+  const goBack = () => {
+    window.history.back();
+  };
   return (
     <Wrapper>
-      <BackButton onClick={backBtnClick} />
+      <BackButton onClick={goBack} />
       <Label>{label}</Label>
     </Wrapper>
   );

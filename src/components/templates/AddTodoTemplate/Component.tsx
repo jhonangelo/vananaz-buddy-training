@@ -13,18 +13,17 @@ const Container = styled.div`
 `;
 
 export type Props = {
-  backBtnClick: () => void;
   formSubmit: (input: string) => void;
 };
 
-const Component = ({ backBtnClick, formSubmit }: Props) => {
+const Component = ({ formSubmit }: Props) => {
   const handleFormSubmit = (input: string) => {
     formSubmit(input);
     showToast('To do saved');
   };
   return (
     <Container>
-      <BackButton label='Add to do' backBtnClick={backBtnClick} />
+      <BackButton label='Add to do' />
       <Input type='text' hasClearButton formSubmit={handleFormSubmit} />
       <ToastNotification position='bottom-center' />
     </Container>

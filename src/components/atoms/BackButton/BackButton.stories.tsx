@@ -28,5 +28,4 @@ const Template: Story<Props> = (args: Props) => {
 export const Default = Template.bind({});
 Default.args = {
   label: 'Search to do',
-  backBtnClick: action('back-button-click'),
 };
