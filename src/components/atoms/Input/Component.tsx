@@ -60,35 +60,52 @@ export type Props = {
   label?: string;
   type?: 'text' | 'email' | 'password';
   hasClearButton?: boolean;
+  currentValue?: string;
   formSubmit: (input: string) => void;
+  setUpdatedValue?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const Component = ({
   label,
   type,
+  currentValue,
   hasClearButton,
   formSubmit,
+  setUpdatedValue,
 }: Props): React.ReactElement => {
   const [input, setInput] = useState('');
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    input.length > 0 && formSubmit(input);
+    input && input.length > 0 && formSubmit(input);
+    currentValue && currentValue.length > 0 && formSubmit(currentValue);
     setInput('');
+    setUpdatedValue?.('');
   };
+
   return (
     <StyledDiv>
       {label && <StyledLabel>{label}</StyledLabel>}
       <InputContainer onSubmit={handleSubmit} formSubmit={formSubmit}>
-        <TextInput
-          type={type}
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-        />
-        {hasClearButton && input.length > 0 && (
-          <IconWrapper>
-            <Delete onClick={() => setInput('')} />
-          </IconWrapper>
+        {currentValue ? (
+          <TextInput
+            type={type}
+            value={currentValue}
+            onChange={(event) => setUpdatedValue?.(event.target.value)}
+          />
+        ) : (
+          <TextInput
+            type={type}
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+          />
         )}
+
+        {hasClearButton &&
+          (input.length > 0 || (currentValue && currentValue.length > 0)) && (
+            <IconWrapper>
+              <Delete onClick={() => setInput('')} />
+            </IconWrapper>
+          )}
       </InputContainer>
     </StyledDiv>
   );
