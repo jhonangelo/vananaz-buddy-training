@@ -64,7 +64,7 @@ const Component = ({
 }: Props) => {
   return (
     <Container>
-      <BackButton label='Select to do' backBtnClick={backBtnClick} />
+      <BackButton label='Select to do' />
       <SelectItemListWrapper>
         {data?.length > 0 ? (
           <SelectListContainer>

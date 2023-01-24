@@ -29,6 +29,5 @@ const Template: Story<Props> = (args: Props) => {
 export const Default = Template.bind({});
 Default.args = {
   currentValue: 'Get parcel from LBC',
-  backBtnClick: action('go-back'),
   updateSubmit: action('updated-value'),
 };

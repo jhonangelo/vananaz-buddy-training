@@ -53,7 +53,6 @@ interface Todo {
 
 export type Props = {
   data?: Todo[];
-  backBtnClick: () => void;
   completeSelected: () => void;
   deleteSelected: () => void;
   formSubmit: (input: string) => void;
@@ -61,14 +60,13 @@ export type Props = {
 
 const Component = ({
   data = [],
-  backBtnClick,
   completeSelected,
   deleteSelected,
   formSubmit,
 }: Props) => {
   return (
     <Container>
-      <BackButton label='Search to do' backBtnClick={backBtnClick} />
+      <BackButton label='Search to do' />
       <Controls>
         <Input type='text' hasClearButton formSubmit={formSubmit} />
       </Controls>

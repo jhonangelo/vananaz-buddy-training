@@ -96,6 +96,7 @@ export type Props = {
   handleUpdate: () => void;
   handleDelete: () => void;
   AddTodoBtnClick: () => void;
+  linkTo: string;
 };
 
 const Component = ({
@@ -107,6 +108,7 @@ const Component = ({
   handleUpdate,
   handleDelete,
   AddTodoBtnClick,
+  linkTo,
 }: Props) => {
   return (
     <Container>
@@ -136,7 +138,7 @@ const Component = ({
           <EmptyContainer>
             <EmptyIcon />
             <QuoteMessage>To do list increases productivity</QuoteMessage>
-            <TextLink text='Add your first to do' />
+            <TextLink text='Add your first to do' linkTo={linkTo} />
           </EmptyContainer>
         )}
       </TodoItemListWrapper>

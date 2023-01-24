@@ -14,12 +14,11 @@ const Container = styled.div`
 `;
 
 export type Props = {
-  backBtnClick: () => void;
   updateSubmit: (input: string) => void;
   currentValue: string;
 };
 
-const Component = ({ backBtnClick, updateSubmit, currentValue }: Props) => {
+const Component = ({ updateSubmit, currentValue }: Props) => {
   const [toUpdateValue, setUpdatedValue] = useState(currentValue);
 
   const handleUpdateSubmit = (input: string) => {
@@ -28,7 +27,7 @@ const Component = ({ backBtnClick, updateSubmit, currentValue }: Props) => {
   };
   return (
     <Container>
-      <BackButton label='Update to do' backBtnClick={backBtnClick} />
+      <BackButton label='Update to do' />
       <Input
         formSubmit={handleUpdateSubmit}
         currentValue={toUpdateValue}

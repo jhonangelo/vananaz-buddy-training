@@ -33,7 +33,6 @@ withData.args = {
     { id: 2, text: 'Book an appointment', isDone: false },
     { id: 3, text: 'Walk the dog', isDone: false },
   ],
-  backBtnClick: action('go-back'),
   deleteSelected: action('selected-todo-deleted'),
   completeSelected: action('selected-todo-completed'),
   formSubmit: action('search-todo-input'),
@@ -42,7 +41,6 @@ withData.args = {
 export const empty = Template.bind({});
 empty.args = {
   data: [],
-  backBtnClick: action('go-back'),
   deleteSelected: action('selected-todo-deleted'),
   completeSelected: action('selected-todo-completed'),
 };
