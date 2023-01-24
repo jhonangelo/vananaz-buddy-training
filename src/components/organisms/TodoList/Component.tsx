@@ -20,7 +20,7 @@ export type Props = {
   data?: Todo[];
   itemClick: () => void;
   handleUpdate: () => void;
-  handleDelete: () => void;
+  handleDelete: (id: number) => void;
 };
 
 const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
@@ -34,7 +34,7 @@ const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
               isDone={item.isDone}
               text={item.text}
               handleUpdate={handleUpdate}
-              handleDelete={handleDelete}
+              handleDelete={() => handleDelete(item.id)}
             />
           ) : (
             <TodoListItem
@@ -43,7 +43,7 @@ const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
               text={item.text}
               itemClick={itemClick}
               handleUpdate={handleUpdate}
-              handleDelete={handleDelete}
+              handleDelete={() => handleDelete(item.id)}
             />
           )
         )}

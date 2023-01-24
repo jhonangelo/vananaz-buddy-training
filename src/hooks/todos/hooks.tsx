@@ -13,22 +13,26 @@ type Todo = {
 export type TodoContextType = {
   todos: Todo[];
   addTodo: (text: string) => void;
+  deleteTodo: (id: number) => void;
 };
 
 export const TodoContext = createContext<TodoContextType>({
   todos: [],
   addTodo: (text: string) => {},
+  deleteTodo: (id: number) => {},
 });
 
 type TodoAction = {
-  type: 'add-todo';
-  payload: Todo;
+  type: 'add-todo' | 'delete-todo';
+  payload: Todo | any;
 };
 
 const reducer = (state: Todo[], action: TodoAction) => {
   switch (action.type) {
     case 'add-todo':
       return [...state, action.payload];
+    case 'delete-todo':
+      return action.payload.length > 0 ? [...action.payload] : [];
     default:
       return state;
   }
@@ -36,6 +40,7 @@ const reducer = (state: Todo[], action: TodoAction) => {
 
 export const ContextProvider = ({ children }: Props) => {
   const [todos, dispatch] = useReducer(reducer, []);
+
   const addTodo = (text: string) => {
     const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
     const newTodoItem = { id: newId, text, isDone: false };
@@ -43,6 +48,11 @@ export const ContextProvider = ({ children }: Props) => {
       type: 'add-todo',
       payload: newTodoItem,
     });
+  };
+
+  const deleteTodo = (id: number) => {
+    const filteredTodo = todos.filter((todo) => todo.id !== id);
+    dispatch({ type: 'delete-todo', payload: filteredTodo });
   };
 
   useEffect(() => {
@@ -59,7 +69,7 @@ export const ContextProvider = ({ children }: Props) => {
   }, [todos]);
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, deleteTodo }}>
       {children}
     </TodoContext.Provider>
   );
