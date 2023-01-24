@@ -6,7 +6,7 @@ import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
 type Props = {};
 
 const Component = (props: Props) => {
-  const { todos } = useContext<TodoContextType>(TodoContext);
+  const { todos, deleteTodo } = useContext<TodoContextType>(TodoContext);
 
   const navigate = useNavigate();
   const AddTodoBtnClick = useCallback(
@@ -21,7 +21,7 @@ const Component = (props: Props) => {
       SearchInputClick={() => alert('w')}
       itemClick={() => console.log('todo-item-clicked')}
       AddTodoBtnClick={AddTodoBtnClick}
-      handleDelete={() => console.log('handle-delete')}
+      handleDelete={deleteTodo}
       handleUpdate={() => console.log('handle-update')}
       SearchBtnClick={() => console.log('search-button')}
       linkTo='/'
