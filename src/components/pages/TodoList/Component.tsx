@@ -24,6 +24,7 @@ const Component = (props: Props) => {
       handleDelete={() => console.log('handle-delete')}
       handleUpdate={() => console.log('handle-update')}
       SearchBtnClick={() => console.log('search-button')}
+      linkTo='/'
     />
   );
 };

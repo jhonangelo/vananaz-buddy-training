@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useEffect } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -29,26 +29,34 @@ const reducer = (state: Todo[], action: TodoAction) => {
   switch (action.type) {
     case 'add-todo':
       return [...state, action.payload];
-
     default:
       return state;
   }
 };
 
 export const ContextProvider = ({ children }: Props) => {
-  const [todos, dispatch] = useReducer(reducer, [
-    { id: 0, text: 'Book an appointment', isDone: false },
-    { id: 1, text: 'Get my parcel from LBC', isDone: false },
-    { id: 2, text: 'Buy new shoes', isDone: true },
-  ]);
-
+  const [todos, dispatch] = useReducer(reducer, []);
   const addTodo = (text: string) => {
-    const newId = todos.length ? todos[todos.length - 1].id + 1 : 0;
+    const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
+    const newTodoItem = { id: newId, text, isDone: false };
     dispatch({
       type: 'add-todo',
-      payload: { id: newId, text, isDone: false },
+      payload: newTodoItem,
     });
   };
+
+  useEffect(() => {
+    const localStorageData = JSON.parse(
+      localStorage.getItem('todos') || '[]'
+    ) as Todo[];
+    localStorageData?.forEach((todo: Todo) => {
+      dispatch({ type: 'add-todo', payload: todo });
+    });
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify([...todos]));
+  }, [todos]);
 
   return (
     <TodoContext.Provider value={{ todos, addTodo }}>
