@@ -5,14 +5,16 @@ import './App.css';
 import { AddTodoPage } from './components/pages/AddTodo';
 import { ContextProvider } from './hooks/todos/hooks';
 import { TodoListPage } from './components/pages/TodoList';
+import { SelectListPage } from './components/pages/SelectList';
 
 function App() {
   return (
     <ContextProvider>
       <GlobalStyles />
       <Routes>
-        <Route path='/' element={<AddTodoPage />} />
-        <Route path='/todo-list' element={<TodoListPage />} />
+        <Route path='/' element={<TodoListPage />} />
+        <Route path='/add' element={<AddTodoPage />} />
+        <Route path='/select' element={<SelectListPage />} />
       </Routes>
     </ContextProvider>
   );

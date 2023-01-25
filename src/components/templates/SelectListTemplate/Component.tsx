@@ -51,22 +51,16 @@ interface Todo {
 
 export type Props = {
   data: Todo[];
-  completeSelected: () => void;
-  deleteSelected: () => void;
-  backBtnClick: () => void;
+  completeSelected: (checkedItems: number[]) => void;
+  deleteSelected: (checkedItems: number[]) => void;
 };
 
-const Component = ({
-  data = [],
-  completeSelected,
-  deleteSelected,
-  backBtnClick,
-}: Props) => {
+const Component = ({ data = [], completeSelected, deleteSelected }: Props) => {
   return (
     <Container>
       <BackButton label='Select to do' />
       <SelectItemListWrapper>
-        {data?.length > 0 ? (
+        {data.filter((item) => item.isDone === false).length > 0 ? (
           <SelectListContainer>
             <SelectList
               data={data}
@@ -78,7 +72,7 @@ const Component = ({
           <EmptyContainer>
             <EmptyIcon />
             <QuoteMessage>No to do yet</QuoteMessage>
-            <TextLink text='Add your first to do' linkTo='' />
+            <TextLink text='Add your first to do' linkTo='/add' />
           </EmptyContainer>
         )}
       </SelectItemListWrapper>
