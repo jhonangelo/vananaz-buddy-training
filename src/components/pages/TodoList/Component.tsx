@@ -4,7 +4,6 @@ import { TodoListTemplate } from '../../templates/TodoListTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
 import { DeleteModal } from '../../molecule/DeleteModal';
 import { showToast } from '../../atoms/ToastNotification/Component';
-import { ToastNotification } from '../../atoms/ToastNotification';
 
 type Props = {};
 
@@ -45,7 +44,6 @@ const Component = (props: Props) => {
         linkTo='/add'
         isOpen={isOpen}
       />
-      <ToastNotification duration={1500} position='bottom-center' />
       <DeleteModal
         isOpen={isOpen}
         closeModal={closeModal}
