@@ -14,6 +14,7 @@ export type TodoContextType = {
   todos: Todo[];
   addTodo: (text: string) => void;
   deleteTodo: (id: number) => void;
+  completeTodo: (id: number) => void;
   deleteSelected: (checkedItems: number[]) => void;
   completeSelected: (checkedItems: number[]) => void;
 };
@@ -22,6 +23,7 @@ export const TodoContext = createContext<TodoContextType>({
   todos: [],
   addTodo: (text: string) => {},
   deleteTodo: (id: number) => {},
+  completeTodo: (id: number) => {},
   deleteSelected: (checkedItems: number[]) => {},
   completeSelected: (checkedItems: number[]) => {},
 });
@@ -70,6 +72,13 @@ export const ContextProvider = ({ children }: Props) => {
     dispatch({ type: 'delete-selected', payload: filteredCheckedItems });
   };
 
+  const completeTodo = (id: number) => {
+    const item = todos.find((item) => item.id === id);
+    if (item) item.isDone = true;
+    const filteredItem = todos.filter((item) => item.id !== id);
+    dispatch({ type: 'complete-selected', payload: [...filteredItem, item] });
+  };
+
   const completeSelected = (checkedItems: number[]) => {
     const filteredCheckItem = todos.filter((item) =>
       checkedItems.includes(item.id)
@@ -104,7 +113,14 @@ export const ContextProvider = ({ children }: Props) => {
 
   return (
     <TodoContext.Provider
-      value={{ todos, addTodo, deleteTodo, deleteSelected, completeSelected }}
+      value={{
+        todos,
+        addTodo,
+        deleteTodo,
+        completeTodo,
+        deleteSelected,
+        completeSelected,
+      }}
     >
       {children}
     </TodoContext.Provider>

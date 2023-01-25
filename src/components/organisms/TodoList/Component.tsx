@@ -18,7 +18,7 @@ interface Todo {
 
 export type Props = {
   data?: Todo[];
-  itemClick: () => void;
+  itemClick: (id: number) => void;
   handleUpdate: () => void;
   handleDelete: (id: number) => void;
   isOpen: boolean;
@@ -51,7 +51,7 @@ const Component = ({
             key={item.id}
             isDone={item.isDone}
             text={item.text}
-            itemClick={itemClick}
+            itemClick={() => itemClick(item.id)}
             handleUpdate={handleUpdate}
             handleDelete={() => handleDelete(item.id)}
             isOpen={isOpen}
