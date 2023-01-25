@@ -19,8 +19,8 @@ type Todo = {
 
 export type Props = {
   data: Todo[];
-  completeSelected: () => void;
-  deleteSelected: () => void;
+  completeSelected: (checkedItems: number[]) => void;
+  deleteSelected: (checkedItems: number[]) => void;
 };
 
 const Component = ({ data, deleteSelected, completeSelected }: Props) => {
@@ -55,19 +55,22 @@ const Component = ({ data, deleteSelected, completeSelected }: Props) => {
   }, [checkedItems]);
   return (
     <SelectListContainer>
-      {data?.map((item) => (
-        <CheckboxItem
-          checked={checkedItems.includes(item.id)}
-          key={item.id}
-          onCheck={() => handleCheck(item.id)}
-          text={item.text}
-        />
-      ))}
+      {data?.map(
+        (item) =>
+          !item.isDone && (
+            <CheckboxItem
+              checked={checkedItems.includes(item.id)}
+              key={item.id}
+              onCheck={() => handleCheck(item.id)}
+              text={item.text}
+            />
+          )
+      )}
       <SelectModal
         isOpen={isOpen}
         selectAllHandler={handleSelectAll}
-        completeSelectedHandler={completeSelected}
-        deleteSelectedHandler={deleteSelected}
+        completeSelectedHandler={() => completeSelected(checkedItems)}
+        deleteSelectedHandler={() => deleteSelected(checkedItems)}
       />
     </SelectListContainer>
   );

@@ -24,29 +24,31 @@ export type Props = {
 };
 
 const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
+  const sortedTodoData = data?.sort(
+    (x, y) => Number(x.isDone) - Number(y.isDone)
+  );
   return (
     <ListContainer>
-      {data &&
-        data.map((item) =>
-          item.isDone ? (
-            <TodoListItem
-              key={item.id}
-              isDone={item.isDone}
-              text={item.text}
-              handleUpdate={handleUpdate}
-              handleDelete={() => handleDelete(item.id)}
-            />
-          ) : (
-            <TodoListItem
-              key={item.id}
-              isDone={item.isDone}
-              text={item.text}
-              itemClick={itemClick}
-              handleUpdate={handleUpdate}
-              handleDelete={() => handleDelete(item.id)}
-            />
-          )
-        )}
+      {sortedTodoData?.map((item) =>
+        item.isDone ? (
+          <TodoListItem
+            key={item.id}
+            isDone={item.isDone}
+            text={item.text}
+            handleUpdate={handleUpdate}
+            handleDelete={() => handleDelete(item.id)}
+          />
+        ) : (
+          <TodoListItem
+            key={item.id}
+            isDone={item.isDone}
+            text={item.text}
+            itemClick={itemClick}
+            handleUpdate={handleUpdate}
+            handleDelete={() => handleDelete(item.id)}
+          />
+        )
+      )}
     </ListContainer>
   );
 };

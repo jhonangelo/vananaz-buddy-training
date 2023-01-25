@@ -14,16 +14,20 @@ export type TodoContextType = {
   todos: Todo[];
   addTodo: (text: string) => void;
   deleteTodo: (id: number) => void;
+  deleteSelected: (checkedItems: number[]) => void;
+  completeSelected: (checkedItems: number[]) => void;
 };
 
 export const TodoContext = createContext<TodoContextType>({
   todos: [],
   addTodo: (text: string) => {},
   deleteTodo: (id: number) => {},
+  deleteSelected: (checkedItems: number[]) => {},
+  completeSelected: (checkedItems: number[]) => {},
 });
 
 type TodoAction = {
-  type: 'add-todo' | 'delete-todo';
+  type: 'add-todo' | 'delete-todo' | 'delete-selected' | 'complete-selected';
   payload: Todo | any;
 };
 
@@ -33,6 +37,10 @@ const reducer = (state: Todo[], action: TodoAction) => {
       return [...state, action.payload];
     case 'delete-todo':
       return action.payload.length > 0 ? [...action.payload] : [];
+    case 'delete-selected':
+      return [...action.payload];
+    case 'complete-selected':
+      return [...action.payload];
     default:
       return state;
   }
@@ -55,6 +63,32 @@ export const ContextProvider = ({ children }: Props) => {
     dispatch({ type: 'delete-todo', payload: filteredTodo });
   };
 
+  const deleteSelected = (checkedItems: number[]) => {
+    const filteredCheckedItems = todos.filter(
+      (todo) => !checkedItems.includes(todo.id)
+    );
+    dispatch({ type: 'delete-selected', payload: filteredCheckedItems });
+  };
+
+  const completeSelected = (checkedItems: number[]) => {
+    const filteredCheckItem = todos.filter((item) =>
+      checkedItems.includes(item.id)
+    );
+    const completedItems = filteredCheckItem.map((item) => ({
+      ...item,
+      isDone: true,
+    }));
+    const updatedTodos = todos.map((item) =>
+      checkedItems.includes(item.id)
+        ? completedItems.find((t) => t.id === item.id)
+        : item
+    );
+    dispatch({
+      type: 'complete-selected',
+      payload: updatedTodos,
+    });
+  };
+
   useEffect(() => {
     const localStorageData = JSON.parse(
       localStorage.getItem('todos') || '[]'
@@ -69,7 +103,9 @@ export const ContextProvider = ({ children }: Props) => {
   }, [todos]);
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, deleteTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addTodo, deleteTodo, deleteSelected, completeSelected }}
+    >
       {children}
     </TodoContext.Provider>
   );

@@ -53,7 +53,6 @@ const Template: Story<Props> = (args: Props) => {
 export const withData = Template.bind({});
 withData.args = {
   data: [{ id: 1, text: 'Get parcel from LBC', isDone: false }],
-  backBtnClick: action('go-back'),
   deleteSelected: action('selected-todo-deleted'),
   completeSelected: action('selected-todo-completed'),
 };
@@ -61,7 +60,6 @@ withData.args = {
 export const empty = Template.bind({});
 empty.args = {
   data: [],
-  backBtnClick: action('go-back'),
   deleteSelected: action('selected-todo-deleted'),
   completeSelected: action('selected-todo-completed'),
 };

@@ -40,13 +40,13 @@ const Component = (props: Props) => {
       <TodoListTemplate
         data={todos}
         homeBtnClick={() => console.log('logout')}
-        SearchInputClick={() => alert('w')}
+        SearchInputClick={() => console.log('search-todo')}
         itemClick={() => console.log('todo-item-clicked')}
-        AddTodoBtnClick={AddTodoBtnClick}
+        AddTodoBtnClick={() => navigate('/add')}
         handleDelete={handleDelete}
         handleUpdate={() => console.log('handle-update')}
-        SearchBtnClick={() => console.log('search-button')}
-        linkTo='/'
+        SearchBtnClick={() => navigate('/select')}
+        linkTo='/add'
       />
       <ToastNotification duration={1500} position='bottom-center' />
       <DeleteModal
