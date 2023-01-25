@@ -60,7 +60,7 @@ const Component = ({ data = [], completeSelected, deleteSelected }: Props) => {
     <Container>
       <BackButton label='Select to do' />
       <SelectItemListWrapper>
-        {data.map((item) => item.isDone === true).length < 1 ? (
+        {data.filter((item) => item.isDone === false).length > 0 ? (
           <SelectListContainer>
             <SelectList
               data={data}

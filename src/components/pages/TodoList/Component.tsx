@@ -13,7 +13,7 @@ const Component = (props: Props) => {
     <TodoListTemplate
       data={todos}
       homeBtnClick={() => console.log('logout')}
-      SearchInputClick={() => alert('w')}
+      SearchInputClick={() => console.log('search-todo')}
       itemClick={() => console.log('todo-item-clicked')}
       AddTodoBtnClick={() => navigate('/add')}
       handleDelete={deleteTodo}
