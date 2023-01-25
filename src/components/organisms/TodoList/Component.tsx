@@ -21,9 +21,16 @@ export type Props = {
   itemClick: () => void;
   handleUpdate: () => void;
   handleDelete: (id: number) => void;
+  isOpen: boolean;
 };
 
-const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
+const Component = ({
+  data,
+  itemClick,
+  handleUpdate,
+  handleDelete,
+  isOpen,
+}: Props) => {
   const sortedTodoData = data?.sort(
     (x, y) => Number(x.isDone) - Number(y.isDone)
   );
@@ -37,6 +44,7 @@ const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
             text={item.text}
             handleUpdate={handleUpdate}
             handleDelete={() => handleDelete(item.id)}
+            isOpen={isOpen}
           />
         ) : (
           <TodoListItem
@@ -46,6 +54,7 @@ const Component = ({ data, itemClick, handleUpdate, handleDelete }: Props) => {
             itemClick={itemClick}
             handleUpdate={handleUpdate}
             handleDelete={() => handleDelete(item.id)}
+            isOpen={isOpen}
           />
         )
       )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TodoItem } from '../../atoms/TodoItem';
 import styled from 'styled-components';
 import { KebabMenu } from '../../atoms/KebabMenu';
@@ -20,6 +20,7 @@ export type Props = {
   itemClick?: () => void;
   handleUpdate: () => void;
   handleDelete: () => void;
+  isOpen: boolean;
 };
 
 const Component = ({
@@ -28,10 +29,24 @@ const Component = ({
   itemClick,
   handleUpdate,
   handleDelete,
+  isOpen,
   ...props
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const closeMenu = () => setIsMenuOpen(false);
+  const [isToBeDeleted, setisToBeDeleted] = useState(false);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  const handleKebabDelete = () => {
+    setisToBeDeleted(true);
+    handleDelete();
+  };
+
+  useEffect(() => {
+    !isOpen && setisToBeDeleted(false);
+  }, [isOpen]);
+
   return (
     <Item>
       <TodoItem
@@ -39,6 +54,7 @@ const Component = ({
         isDone={isDone}
         text={text}
         isUpdating={isMenuOpen}
+        isToBeDeleted={isToBeDeleted}
         {...props}
       />
       {!isDone && (
@@ -47,7 +63,7 @@ const Component = ({
           setIsMenuOpen={setIsMenuOpen}
           closeMenu={closeMenu}
           handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
+          handleDelete={handleKebabDelete}
         />
       )}
     </Item>

@@ -97,6 +97,7 @@ export type Props = {
   handleDelete: (id: number) => void;
   AddTodoBtnClick: () => void;
   linkTo: string;
+  isOpen: boolean;
 };
 
 const Component = ({
@@ -109,6 +110,7 @@ const Component = ({
   handleDelete,
   AddTodoBtnClick,
   linkTo,
+  isOpen,
 }: Props) => {
   return (
     <Container>
@@ -128,6 +130,7 @@ const Component = ({
         {data?.length > 0 ? (
           <TodoListContainer>
             <TodoList
+              isOpen={isOpen}
               data={data}
               itemClick={itemClick}
               handleUpdate={handleUpdate}

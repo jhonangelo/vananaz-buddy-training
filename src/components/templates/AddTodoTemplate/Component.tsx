@@ -25,7 +25,7 @@ const Component = ({ formSubmit }: Props) => {
     <Container>
       <BackButton label='Add to do' />
       <Input type='text' hasClearButton formSubmit={handleFormSubmit} />
-      <ToastNotification position='bottom-center' />
+      <ToastNotification duration={1500} position='bottom-center' />
     </Container>
   );
 };
