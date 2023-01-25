@@ -31,7 +31,15 @@ const Component = ({
   ...props
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const closeMenu = () => setIsMenuOpen(false);
+  const [isToBeDeleted, setisToBeDeleted] = useState(false);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  const handleKebabDelete = () => {
+    setisToBeDeleted(true);
+    handleDelete();
+  };
   return (
     <Item>
       <TodoItem
@@ -39,6 +47,7 @@ const Component = ({
         isDone={isDone}
         text={text}
         isUpdating={isMenuOpen}
+        isToBeDeleted={isToBeDeleted}
         {...props}
       />
       {!isDone && (
@@ -47,7 +56,7 @@ const Component = ({
           setIsMenuOpen={setIsMenuOpen}
           closeMenu={closeMenu}
           handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
+          handleDelete={handleKebabDelete}
         />
       )}
     </Item>
