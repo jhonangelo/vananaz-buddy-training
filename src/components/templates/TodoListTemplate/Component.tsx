@@ -119,7 +119,7 @@ const Component = ({
       <Controls>
         <StyledSeachInput onClick={SearchInputClick} />
         <Button
-          label='Search'
+          label='Select'
           buttonType='secondary'
           onClick={SearchBtnClick}
         />
