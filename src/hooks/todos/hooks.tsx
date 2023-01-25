@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useEffect } from 'react';
+import React, { useReducer, createContext, useEffect, useState } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -16,6 +16,8 @@ export type TodoContextType = {
   deleteTodo: (id: number) => void;
   deleteSelected: (checkedItems: number[]) => void;
   completeSelected: (checkedItems: number[]) => void;
+  currentId: number;
+  setCurrentId: (currentId: number) => void;
 };
 
 export const TodoContext = createContext<TodoContextType>({
@@ -24,6 +26,8 @@ export const TodoContext = createContext<TodoContextType>({
   deleteTodo: (id: number) => {},
   deleteSelected: (checkedItems: number[]) => {},
   completeSelected: (checkedItems: number[]) => {},
+  currentId: 0,
+  setCurrentId: (currentId: number) => {},
 });
 
 type TodoAction = {
@@ -48,9 +52,12 @@ const reducer = (state: Todo[], action: TodoAction) => {
 
 export const ContextProvider = ({ children }: Props) => {
   const [todos, dispatch] = useReducer(reducer, []);
+  const [currentId, setCurrentId] = useState<number>(0);
 
   const addTodo = (text: string) => {
-    const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
+    const newId = todos.reduce((max, obj) => {
+      return Math.max(max, obj.id) + 1;
+    }, 0);
     const newTodoItem = { id: newId, text, isDone: false };
     dispatch({
       type: 'add-todo',
@@ -104,7 +111,15 @@ export const ContextProvider = ({ children }: Props) => {
 
   return (
     <TodoContext.Provider
-      value={{ todos, addTodo, deleteTodo, deleteSelected, completeSelected }}
+      value={{
+        todos,
+        addTodo,
+        deleteTodo,
+        deleteSelected,
+        completeSelected,
+        currentId,
+        setCurrentId,
+      }}
     >
       {children}
     </TodoContext.Provider>
