@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodoListTemplate } from '../../templates/TodoListTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
@@ -14,10 +14,6 @@ const Component = (props: Props) => {
   const [currentID, setCurrentID] = useState(0);
 
   const navigate = useNavigate();
-  const AddTodoBtnClick = useCallback(
-    () => navigate('/', { replace: true }),
-    [navigate]
-  );
 
   const closeModal = () => {
     setIsOpen(false);
@@ -47,6 +43,7 @@ const Component = (props: Props) => {
         handleUpdate={() => console.log('handle-update')}
         SearchBtnClick={() => navigate('/select')}
         linkTo='/add'
+        isOpen={isOpen}
       />
       <ToastNotification duration={1500} position='bottom-center' />
       <DeleteModal
