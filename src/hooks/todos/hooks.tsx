@@ -18,6 +18,7 @@ export type TodoContextType = {
   completeSelected: (checkedItems: number[]) => void;
   currentId: number;
   setCurrentId: (currentId: number) => void;
+  updateTodo: (updatedText: string) => void;
 };
 
 export const TodoContext = createContext<TodoContextType>({
@@ -28,10 +29,16 @@ export const TodoContext = createContext<TodoContextType>({
   completeSelected: (checkedItems: number[]) => {},
   currentId: 0,
   setCurrentId: (currentId: number) => {},
+  updateTodo: (updatedText: string) => {},
 });
 
 type TodoAction = {
-  type: 'add-todo' | 'delete-todo' | 'delete-selected' | 'complete-selected';
+  type:
+    | 'add-todo'
+    | 'delete-todo'
+    | 'delete-selected'
+    | 'complete-selected'
+    | 'update-todo';
   payload: Todo | any;
 };
 
@@ -44,6 +51,8 @@ const reducer = (state: Todo[], action: TodoAction) => {
     case 'delete-selected':
       return [...action.payload];
     case 'complete-selected':
+      return [...action.payload];
+    case 'update-todo':
       return [...action.payload];
     default:
       return state;
@@ -96,6 +105,13 @@ export const ContextProvider = ({ children }: Props) => {
     });
   };
 
+  const updateTodo = (updatedText: string) => {
+    const filteredTodos = todos.filter((item) => item.id !== currentId);
+    const updatedTodo = todos.find((item) => item.id === currentId);
+    updatedTodo.text = updatedText;
+    dispatch({ type: 'update-todo', payload: [...filteredTodos, updatedTodo] });
+  };
+
   useEffect(() => {
     const localStorageData = JSON.parse(
       localStorage.getItem('todos') || '[]'
@@ -119,6 +135,7 @@ export const ContextProvider = ({ children }: Props) => {
         completeSelected,
         currentId,
         setCurrentId,
+        updateTodo,
       }}
     >
       {children}
