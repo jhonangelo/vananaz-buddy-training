@@ -53,9 +53,10 @@ interface Todo {
 
 export type Props = {
   data?: Todo[];
-  completeSelected: () => void;
-  deleteSelected: () => void;
-  formSubmit: (input: string) => void;
+  completeSelected: (checkedItems: number[]) => void;
+  deleteSelected: (checkedItems: number[]) => void;
+  formSubmit?: (input: string) => void;
+  onChangeText?: (input: string) => void;
 };
 
 const Component = ({
@@ -63,12 +64,18 @@ const Component = ({
   completeSelected,
   deleteSelected,
   formSubmit,
+  onChangeText,
 }: Props) => {
   return (
     <Container>
       <BackButton label='Search to do' />
       <Controls>
-        <Input type='text' hasClearButton formSubmit={formSubmit} />
+        <Input
+          type='text'
+          hasClearButton
+          formSubmit={formSubmit}
+          onChangeText={onChangeText}
+        />
       </Controls>
       <SearchListWrapper>
         {data?.length > 0 ? (
