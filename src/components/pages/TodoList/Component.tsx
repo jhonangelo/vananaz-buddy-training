@@ -8,8 +8,14 @@ import { showToast } from '../../atoms/ToastNotification/Component';
 type Props = {};
 
 const Component = (props: Props) => {
-  const { todos, deleteTodo, completeTodo, currentId, setCurrentId } =
-    useContext<TodoContextType>(TodoContext);
+  const {
+    todos,
+    deleteTodo,
+    completeTodo,
+    currentId,
+    setCurrentId,
+    fetchCurrentText,
+  } = useContext<TodoContextType>(TodoContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -32,6 +38,7 @@ const Component = (props: Props) => {
 
   const handleUpdate = (id: number) => {
     setCurrentId(id);
+    fetchCurrentText(id);
     navigate('update');
   };
 
