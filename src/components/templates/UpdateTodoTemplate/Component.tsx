@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { BackButton } from '../../atoms/BackButton';
 import { Input } from '../../atoms/Input';
 import { ToastNotification } from '../../atoms/ToastNotification';
-import { showToast } from '../../atoms/ToastNotification/Component';
 
 const Container = styled.div`
   display: flex;
@@ -20,16 +19,11 @@ export type Props = {
 
 const Component = ({ updateSubmit, currentValue }: Props) => {
   const [toUpdateValue, setUpdatedValue] = useState(currentValue);
-
-  const handleUpdateSubmit = (input: string) => {
-    updateSubmit(input);
-    showToast('To do updated');
-  };
   return (
     <Container>
       <BackButton label='Update to do' />
       <Input
-        formSubmit={handleUpdateSubmit}
+        formSubmit={updateSubmit}
         currentValue={toUpdateValue}
         hasClearButton
         setUpdatedValue={setUpdatedValue}

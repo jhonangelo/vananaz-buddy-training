@@ -6,6 +6,7 @@ import { AddTodoPage } from './components/pages/AddTodo';
 import { ContextProvider } from './hooks/todos/hooks';
 import { TodoListPage } from './components/pages/TodoList';
 import { SelectListPage } from './components/pages/SelectList';
+import { UpdateTodoPage } from './components/pages/UpdateTodo';
 import { ToastNotification } from './components/atoms/ToastNotification';
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
       <GlobalStyles />
       <Routes>
         <Route path='/' element={<TodoListPage />} />
-        <Route path='/add' element={<AddTodoPage />} />
-        <Route path='/select' element={<SelectListPage />} />
+        <Route path='add' element={<AddTodoPage />} />
+        <Route path='select' element={<SelectListPage />} />
+        <Route path='update' element={<UpdateTodoPage />} />
       </Routes>
       <ToastNotification duration={1500} position='bottom-center' />
     </ContextProvider>

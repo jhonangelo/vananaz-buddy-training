@@ -8,10 +8,15 @@ import { showToast } from '../../atoms/ToastNotification/Component';
 type Props = {};
 
 const Component = (props: Props) => {
-  const { todos, deleteTodo, completeTodo } =
-    useContext<TodoContextType>(TodoContext);
+  const {
+    todos,
+    deleteTodo,
+    completeTodo,
+    currentId,
+    setCurrentId,
+    fetchCurrentText,
+  } = useContext<TodoContextType>(TodoContext);
   const [isOpen, setIsOpen] = useState(false);
-  const [currentID, setCurrentID] = useState(0);
 
   const navigate = useNavigate();
 
@@ -20,15 +25,21 @@ const Component = (props: Props) => {
   };
 
   const handleDelete = (id: number) => {
-    setCurrentID(id);
+    setCurrentId(id);
     setIsOpen(true);
   };
 
   const handleConfirmDelete = () => {
     closeModal();
-    deleteTodo(currentID);
-    setCurrentID(0);
+    deleteTodo(currentId);
+    setCurrentId(0);
     showToast('To do deleted');
+  };
+
+  const handleUpdate = (id: number) => {
+    setCurrentId(id);
+    fetchCurrentText(id);
+    navigate('update');
   };
 
   return (
@@ -40,8 +51,8 @@ const Component = (props: Props) => {
         itemClick={completeTodo}
         AddTodoBtnClick={() => navigate('/add')}
         handleDelete={handleDelete}
-        handleUpdate={() => console.log('handle-update')}
-        SearchBtnClick={() => navigate('/select')}
+        handleUpdate={handleUpdate}
+        SearchBtnClick={() => navigate('select')}
         linkTo='/add'
         isOpen={isOpen}
       />
