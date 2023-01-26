@@ -4,7 +4,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-type Todo = {
+export type Todo = {
   id: number;
   text: string;
   isDone: boolean;

@@ -47,7 +47,7 @@ const Component = (props: Props) => {
       <TodoListTemplate
         data={todos}
         homeBtnClick={() => console.log('logout')}
-        SearchInputClick={() => console.log('search-todo')}
+        SearchInputClick={() => navigate('search')}
         itemClick={completeTodo}
         AddTodoBtnClick={() => navigate('/add')}
         handleDelete={handleDelete}
