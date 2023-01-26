@@ -58,7 +58,7 @@ const IconWrapper = styled.button`
 
 export type Props = {
   label?: string;
-  type?: 'text' | 'email' | 'password';
+  type?: 'text' | 'email' | 'password' | 'number';
   hasClearButton?: boolean;
   currentValue?: string;
   formSubmit: (input: string) => void;

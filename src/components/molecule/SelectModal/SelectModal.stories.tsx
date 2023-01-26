@@ -19,6 +19,7 @@ const Template: Story<Props> = (args: Props) => {
   return (
     <>
       <Button
+        type='button'
         onClick={() => setIsOpen(true)}
         buttonType='primary'
         label='Test Modal'
