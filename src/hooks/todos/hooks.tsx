@@ -20,6 +20,8 @@ export type TodoContextType = {
   currentId: number;
   setCurrentId: (currentId: number) => void;
   updateTodo: (updatedText: string) => void;
+  fetchCurrentText: (id: number) => void;
+  currentTodo: string;
 };
 
 export const TodoContext = createContext<TodoContextType>({
@@ -32,6 +34,8 @@ export const TodoContext = createContext<TodoContextType>({
   currentId: 0,
   setCurrentId: (currentId: number) => {},
   updateTodo: (updatedText: string) => {},
+  fetchCurrentText: (id: number) => {},
+  currentTodo: '',
 });
 
 type TodoAction = {
@@ -64,6 +68,7 @@ const reducer = (state: Todo[], action: TodoAction) => {
 export const ContextProvider = ({ children }: Props) => {
   const [todos, dispatch] = useReducer(reducer, []);
   const [currentId, setCurrentId] = useState<number>(0);
+  const [currentTodo, setCurrentTodo] = useState<string>('');
 
   const addTodo = (text: string) => {
     const newId = todos.reduce((max, obj) => {
@@ -121,6 +126,11 @@ export const ContextProvider = ({ children }: Props) => {
     dispatch({ type: 'update-todo', payload: [...filteredTodos, updatedTodo] });
   };
 
+  const fetchCurrentText = (id: number) => {
+    const current = todos.find((item) => item.id === id).text;
+    setCurrentTodo(current);
+  };
+
   useEffect(() => {
     const localStorageData = JSON.parse(
       localStorage.getItem('todos') || '[]'
@@ -146,6 +156,8 @@ export const ContextProvider = ({ children }: Props) => {
         currentId,
         setCurrentId,
         updateTodo,
+        fetchCurrentText,
+        currentTodo,
       }}
     >
       {children}
