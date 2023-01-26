@@ -15,6 +15,7 @@ const Component = (props: Props) => {
 
   const handleUpdateTodo = (updatedText: string) => {
     updateTodo(updatedText);
+    navigate('/');
     showToast('To do updated');
   };
 

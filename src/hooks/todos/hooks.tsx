@@ -137,18 +137,12 @@ export const ContextProvider = ({ children }: Props) => {
   return (
     <TodoContext.Provider
       value={{
-       
         todos,
-       
         addTodo,
-       
         deleteTodo,
         completeTodo,
-       
         deleteSelected,
-       
         completeSelected,
-     ,
         currentId,
         setCurrentId,
         updateTodo,
