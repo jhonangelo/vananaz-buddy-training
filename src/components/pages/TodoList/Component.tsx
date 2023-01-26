@@ -4,12 +4,11 @@ import { TodoListTemplate } from '../../templates/TodoListTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
 import { DeleteModal } from '../../molecule/DeleteModal';
 import { showToast } from '../../atoms/ToastNotification/Component';
-import { ToastNotification } from '../../atoms/ToastNotification';
 
 type Props = {};
 
 const Component = (props: Props) => {
-  const { todos, deleteTodo, currentId, setCurrentId } =
+  const { todos, deleteTodo, completeTodo, currentId, setCurrentId } =
     useContext<TodoContextType>(TodoContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,15 +41,14 @@ const Component = (props: Props) => {
         data={todos}
         homeBtnClick={() => console.log('logout')}
         SearchInputClick={() => console.log('search-todo')}
-        itemClick={() => console.log('todo-item-clicked')}
-        AddTodoBtnClick={() => navigate('add')}
+        itemClick={completeTodo}
+        AddTodoBtnClick={() => navigate('/add')}
         handleDelete={handleDelete}
         handleUpdate={handleUpdate}
         SearchBtnClick={() => navigate('select')}
         linkTo='/add'
         isOpen={isOpen}
       />
-      <ToastNotification duration={1500} position='bottom-center' />
       <DeleteModal
         isOpen={isOpen}
         closeModal={closeModal}

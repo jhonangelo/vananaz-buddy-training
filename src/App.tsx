@@ -7,6 +7,7 @@ import { ContextProvider } from './hooks/todos/hooks';
 import { TodoListPage } from './components/pages/TodoList';
 import { SelectListPage } from './components/pages/SelectList';
 import { UpdateTodoPage } from './components/pages/UpdateTodo';
+import { ToastNotification } from './components/atoms/ToastNotification';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='select' element={<SelectListPage />} />
         <Route path='update' element={<UpdateTodoPage />} />
       </Routes>
+      <ToastNotification duration={1500} position='bottom-center' />
     </ContextProvider>
   );
 }
