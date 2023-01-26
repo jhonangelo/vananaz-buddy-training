@@ -141,7 +141,12 @@ export const ContextProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify([...todos]));
+    const prevTodos = JSON.parse(
+      localStorage.getItem('todos') || '[]'
+    ) as Todo[];
+    if (JSON.stringify(prevTodos) !== JSON.stringify(todos)) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
   }, [todos]);
 
   return (
