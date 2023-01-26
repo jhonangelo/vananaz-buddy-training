@@ -92,8 +92,8 @@ export type Props = {
   homeBtnClick: () => void;
   SearchInputClick: () => void;
   SearchBtnClick: () => void;
-  itemClick: () => void;
-  handleUpdate: () => void;
+  itemClick: (id: number) => void;
+  handleUpdate: (id: number) => void;
   handleDelete: (id: number) => void;
   AddTodoBtnClick: () => void;
   linkTo: string;
