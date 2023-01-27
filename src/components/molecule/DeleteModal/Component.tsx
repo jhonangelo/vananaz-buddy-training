@@ -30,6 +30,7 @@ const Component = ({ isOpen, closeModal, noBtnClick, yesBtnClick }: Props) => {
     >
       <Controls>
         <Button
+          type='button'
           label='No'
           buttonType='modalButton'
           bgColor='#FCE0E0'
@@ -37,6 +38,7 @@ const Component = ({ isOpen, closeModal, noBtnClick, yesBtnClick }: Props) => {
           onClick={noBtnClick}
         />
         <Button
+          type='button'
           label='Yes'
           buttonType='modalButton'
           bgColor={`${theme.colors.blue1}`}

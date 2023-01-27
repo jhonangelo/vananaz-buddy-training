@@ -121,6 +121,7 @@ const Component = ({
       <Controls>
         <StyledSeachInput onClick={SearchInputClick} />
         <Button
+          type='button'
           label='Select'
           buttonType='secondary'
           onClick={SearchBtnClick}

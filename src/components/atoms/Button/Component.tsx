@@ -7,7 +7,7 @@ const StyledButton = styled.button<Props>`
   border: 0;
   justify-content: center;
   align-items: center;
-  padding-inline: 9px;
+  padding: 9px;
   cursor: pointer;
 
   &:focus {
@@ -18,7 +18,7 @@ const StyledButton = styled.button<Props>`
     props.buttonType === 'primary' &&
     `background: rgba(47, 128, 237, 1);
       color: white;
-      width: 260px;
+      width: 100%;
       height: 38px;
       font-weight: 700;
       font-size: 14px;
@@ -48,6 +48,7 @@ const StyledButton = styled.button<Props>`
 
 export type Props = {
   buttonType?: 'primary' | 'secondary' | 'modalButton';
+  type: 'submit' | 'button';
   label?: string;
   bgColor?: string;
   color?: string;
@@ -57,10 +58,11 @@ export type Props = {
 const Component = ({
   buttonType,
   label,
+  type,
   ...props
 }: Props): React.ReactElement => {
   return (
-    <StyledButton type='button' buttonType={buttonType} {...props}>
+    <StyledButton type={type} buttonType={buttonType} {...props}>
       {label}
     </StyledButton>
   );

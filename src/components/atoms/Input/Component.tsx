@@ -58,7 +58,7 @@ const IconWrapper = styled.button`
 
 export type Props = {
   label?: string;
-  type?: 'text' | 'email' | 'password';
+  type?: 'text' | 'email' | 'password' | 'number';
   hasClearButton?: boolean;
   currentValue?: string;
   formSubmit?: (input: string) => void;
@@ -76,6 +76,7 @@ const Component = ({
   onChangeText,
 }: Props): React.ReactElement => {
   const [input, setInput] = useState('');
+  const [age, setAge] = useState<number>(0);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     input && input.length > 0 && formSubmit?.(input);
@@ -109,6 +110,15 @@ const Component = ({
             type={type}
             value={input}
             onChange={(event) => handleChangeText(event.target.value)}
+          />
+        ) : type === 'number' ? (
+          <TextInput
+            type={type}
+            value={age}
+            onChange={(event) => {
+              const value = parseFloat(event.target.value.replace(/\D/g, ''));
+              setAge(value);
+            }}
           />
         ) : (
           <TextInput
