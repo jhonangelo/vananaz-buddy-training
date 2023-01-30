@@ -27,5 +27,4 @@ Primary.args = {
   label: 'Login',
   type: 'text',
   hasClearButton: false,
-  formSubmit: action('form-submitted'),
 };

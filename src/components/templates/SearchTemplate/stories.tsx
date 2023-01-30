@@ -35,7 +35,6 @@ withData.args = {
   ],
   deleteSelected: action('selected-todo-deleted'),
   completeSelected: action('selected-todo-completed'),
-  formSubmit: action('search-todo-input'),
 };
 
 export const empty = Template.bind({});

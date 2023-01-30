@@ -1,14 +1,14 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { RegisterForm } from '.';
+import { LoginForm } from '.';
 import { Props } from './Component';
 import GlobalStyles from '../../../constants/themes/globalStyling';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'organisms/RegisterForm',
-  component: RegisterForm,
+  title: 'organisms/LoginForm',
+  component: LoginForm,
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
@@ -20,11 +20,11 @@ const Template: Story<Props> = (args: Props) => {
   return (
     <>
       <GlobalStyles />
-      <RegisterForm {...args} />
+      <LoginForm {...args} />
     </>
   );
 };
 export const Default = Template.bind({});
 Default.args = {
-  submitRegister: action('form-submitted'),
+  submitLogin: action('form-submitted'),
 };
