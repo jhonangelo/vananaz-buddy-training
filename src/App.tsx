@@ -10,21 +10,24 @@ import { UpdateTodoPage } from './components/pages/UpdateTodo';
 import { ToastNotification } from './components/atoms/ToastNotification';
 import { SearchTodoPage } from './components/pages/SearchPage';
 import { LoginPage } from './components/pages/LoginPage';
+import { UserContextProvider } from './hooks/users/hooks';
 
 function App() {
   return (
-    <ContextProvider>
-      <GlobalStyles />
-      <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/todos' element={<TodoListPage />} />
-        <Route path='/todos/add' element={<AddTodoPage />} />
-        <Route path='/todos/select' element={<SelectListPage />} />
-        <Route path='/todos/update' element={<UpdateTodoPage />} />
-        <Route path='/todos/search' element={<SearchTodoPage />} />
-      </Routes>
-      <ToastNotification duration={1500} position='bottom-center' />
-    </ContextProvider>
+    <UserContextProvider>
+      <ContextProvider>
+        <GlobalStyles />
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
+          <Route path='/todos' element={<TodoListPage />} />
+          <Route path='/todos/add' element={<AddTodoPage />} />
+          <Route path='/todos/select' element={<SelectListPage />} />
+          <Route path='/todos/update' element={<UpdateTodoPage />} />
+          <Route path='/todos/search' element={<SearchTodoPage />} />
+        </Routes>
+        <ToastNotification duration={1500} position='bottom-center' />
+      </ContextProvider>
+    </UserContextProvider>
   );
 }
 
