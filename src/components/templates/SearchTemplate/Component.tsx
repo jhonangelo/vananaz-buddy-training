@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
 import { BackButton } from '../../atoms/BackButton';
@@ -53,28 +53,37 @@ interface Todo {
 
 export type Props = {
   data?: Todo[];
+  handleSearch: (input: string) => void;
   completeSelected: (checkedItems: number[]) => void;
   deleteSelected: (checkedItems: number[]) => void;
-  formSubmit?: (input: string) => void;
-  onChangeText?: (input: string) => void;
 };
 
 const Component = ({
   data = [],
+  handleSearch,
   completeSelected,
   deleteSelected,
-  formSubmit,
-  onChangeText,
 }: Props) => {
+  const [input, setInput] = useState<string>('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(event.target.value);
+    handleSearch(event.target.value);
+  };
+
+  const clearInput = () => {
+    setInput('');
+  };
   return (
     <Container>
       <BackButton label='Search to do' />
       <Controls>
         <Input
           type='text'
+          value={input}
           hasClearButton
-          formSubmit={formSubmit}
-          onChangeText={onChangeText}
+          clearInput={clearInput}
+          onChange={handleChange}
         />
       </Controls>
       <SearchListWrapper>
@@ -84,7 +93,7 @@ const Component = ({
             completeSelected={completeSelected}
             deleteSelected={deleteSelected}
           />
-        ) : data?.length === 0 ? (
+        ) : input.length > 0 && data?.length === 0 ? (
           <EmptyContainer>
             <StyledEmptyIcon />
             <QuoteMessage>No to do found.</QuoteMessage>

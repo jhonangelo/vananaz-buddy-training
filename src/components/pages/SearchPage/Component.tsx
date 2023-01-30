@@ -43,7 +43,7 @@ const Component = (props: Props) => {
   return (
     <SearchTemplate
       data={searchResults}
-      onChangeText={handleSearch}
+      handleSearch={handleSearch}
       completeSelected={handleCompleteSelected}
       deleteSelected={handleDeleteSelected}
     />
