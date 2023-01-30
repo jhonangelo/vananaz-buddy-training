@@ -21,9 +21,14 @@ const Component = ({ submitLogin }: Props) => {
     password: '',
   });
 
+  const resetFormData = () => {
+    setFormData({ username: '', password: '' });
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     submitLogin(formData);
+    resetFormData();
   };
   return (
     <Container onSubmit={(event) => handleSubmit(event)}>
