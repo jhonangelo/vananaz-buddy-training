@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UpdateTodoTemplate } from '../../templates/UpdateTodoTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
 import { useNavigate } from 'react-router-dom';
-import { showToast } from '../../atoms/ToastNotification/Component';
+import { showToastSuccess } from '../../atoms/ToastNotification/Component';
 
 type Props = {};
 
@@ -14,7 +14,7 @@ const Component = (props: Props) => {
   const handleUpdateTodo = (updatedText: string) => {
     updateTodo(updatedText);
     navigate('/');
-    showToast('To do updated');
+    showToastSuccess('To do updated');
   };
 
   return (

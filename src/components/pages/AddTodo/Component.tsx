@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AddTodoTemplate } from '../../templates/AddTodoTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
-import { showToast } from '../../atoms/ToastNotification/Component';
+import { showToastSuccess } from '../../atoms/ToastNotification/Component';
 
 export type Props = {};
 
@@ -13,7 +13,7 @@ const Component = (props: Props) => {
     event.preventDefault();
     if (input.length !== 0) {
       addTodo(input);
-      showToast('To do saved');
+      showToastSuccess('To do saved');
     }
   };
   const { addTodo } = useContext<TodoContextType>(TodoContext);
