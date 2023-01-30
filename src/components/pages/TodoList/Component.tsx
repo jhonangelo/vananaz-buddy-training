@@ -4,6 +4,7 @@ import { TodoListTemplate } from '../../templates/TodoListTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
 import { DeleteModal } from '../../molecule/DeleteModal';
 import { showToastSuccess } from '../../atoms/ToastNotification/Component';
+import { UserContext, UserContextType } from '../../../hooks/users/hooks';
 
 type Props = {};
 
@@ -16,6 +17,7 @@ const Component = (props: Props) => {
     setCurrentId,
     fetchCurrentText,
   } = useContext<TodoContextType>(TodoContext);
+  const { logoutUser } = useContext<UserContextType>(UserContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -46,14 +48,13 @@ const Component = (props: Props) => {
     <>
       <TodoListTemplate
         data={todos}
-        homeBtnClick={() => console.log('logout')}
+        homeBtnClick={logoutUser}
         SearchInputClick={() => navigate('search')}
         itemClick={completeTodo}
         AddTodoBtnClick={() => navigate('add')}
         handleDelete={handleDelete}
         handleUpdate={handleUpdate}
         SearchBtnClick={() => navigate('select')}
-        linkTo='/add'
         isOpen={isOpen}
       />
       <DeleteModal
