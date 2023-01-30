@@ -72,7 +72,7 @@ const Component = ({ data = [], completeSelected, deleteSelected }: Props) => {
           <EmptyContainer>
             <EmptyIcon />
             <QuoteMessage>No to do yet</QuoteMessage>
-            <TextLink text='Add your first to do' linkTo='/add' />
+            <TextLink text='Add your first to do' linkTo='/todos/add' />
           </EmptyContainer>
         )}
       </SelectItemListWrapper>

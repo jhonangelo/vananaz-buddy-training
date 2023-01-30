@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
+import { Link } from 'react-router-dom';
 
-const Link = styled.a`
+const TextLink = styled(Link)`
   text-decoration: none;
   font-weight: 400;
   font-size: 14px;
@@ -10,10 +11,10 @@ const Link = styled.a`
   cursor: pointer;
 `;
 
-export type Props = { text?: string; linkTo?: string };
+export type Props = { text: string; linkTo: string };
 
 const Component = ({ text, linkTo }: Props): React.ReactElement => {
-  return <Link href={linkTo}>{text}</Link>;
+  return <TextLink to={linkTo}>{text}</TextLink>;
 };
 
 export default Component;
