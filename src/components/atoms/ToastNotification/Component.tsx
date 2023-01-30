@@ -13,16 +13,29 @@ export type Props = {
     | 'bottom-right';
 };
 
-export const showToast = (message: string) => toast(message);
+export const showToastSuccess = (message: string) => toast.success(message);
+
+export const showToastError = (message: string) => toast.error(message);
 
 const Component = ({ duration, position }: Props): React.ReactElement => {
   return (
     <Toaster
       toastOptions={{
         duration: duration,
+        success: {
+          style: {
+            background: `${theme.colors.green3}`,
+            color: `${theme.colors.gray9}`,
+          },
+        },
+
+        error: {
+          style: {
+            background: `${theme.colors.red1}`,
+            color: `${theme.colors.gray9}`,
+          },
+        },
         style: {
-          background: `${theme.colors.green3}`,
-          color: `${theme.colors.gray9}`,
           minWidth: '120px',
           height: '32px',
           fontSize: '14px',

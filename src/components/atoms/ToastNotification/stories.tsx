@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import styled from 'styled-components';
 
 import { ToastNotification } from '.';
-import { Props, showToast } from './Component';
+import { Props, showToastSuccess, showToastError } from './Component';
 
 const Button = styled.button`
   background: #6fcf97;
@@ -36,7 +36,10 @@ export default {
 const Template: Story<Props> = (args: Props) => {
   return (
     <>
-      <Button onClick={() => showToast('To do saved')}>Open toast</Button>
+      <Button onClick={() => showToastSuccess('To do saved')}>
+        Open toast
+      </Button>
+      <Button onClick={() => showToastError('Error')}>Open toast</Button>
       <ToastNotification {...args} />
     </>
   );

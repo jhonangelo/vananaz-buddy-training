@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TodoListTemplate } from '../../templates/TodoListTemplate';
 import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
 import { DeleteModal } from '../../molecule/DeleteModal';
-import { showToast } from '../../atoms/ToastNotification/Component';
+import { showToastSuccess } from '../../atoms/ToastNotification/Component';
 
 type Props = {};
 
@@ -33,7 +33,7 @@ const Component = (props: Props) => {
     closeModal();
     deleteTodo(currentId);
     setCurrentId(0);
-    showToast('To do deleted');
+    showToastSuccess('To do deleted');
   };
 
   const handleUpdate = (id: number) => {
@@ -49,7 +49,7 @@ const Component = (props: Props) => {
         homeBtnClick={() => console.log('logout')}
         SearchInputClick={() => navigate('search')}
         itemClick={completeTodo}
-        AddTodoBtnClick={() => navigate('/add')}
+        AddTodoBtnClick={() => navigate('add')}
         handleDelete={handleDelete}
         handleUpdate={handleUpdate}
         SearchBtnClick={() => navigate('select')}

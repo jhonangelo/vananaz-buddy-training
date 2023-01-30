@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
 import { ReactComponent as BackBtn } from './Icons/back.svg';
@@ -26,12 +27,10 @@ const Label = styled.p`
 export type Props = { label: string };
 
 const Component = ({ label }: Props) => {
-  const goBack = () => {
-    window.history.back();
-  };
+  const navigate = useNavigate();
   return (
     <Wrapper>
-      <BackButton onClick={goBack} />
+      <BackButton onClick={() => navigate(-1)} />
       <Label>{label}</Label>
     </Wrapper>
   );

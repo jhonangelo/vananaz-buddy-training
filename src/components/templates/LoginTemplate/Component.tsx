@@ -16,7 +16,7 @@ const HeroImage = styled.div`
   align-items: center;
   justify-content: center;
   row-gap: 7px;
-  height: 200px;
+  height: 40vh;
   width: 100vw;
   background-color: rgb(47, 128, 237, 0.15);
 `;
@@ -31,6 +31,8 @@ const SubHeader = styled.p`
 
 const FormWrapper = styled.div`
   flex: 1;
+  display: flex;
+  align-items: center;
   justify-content: center;
   width: 100%;
   padding: 16px;
