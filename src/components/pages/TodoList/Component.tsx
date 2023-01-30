@@ -49,7 +49,7 @@ const Component = (props: Props) => {
         homeBtnClick={() => console.log('logout')}
         SearchInputClick={() => navigate('search')}
         itemClick={completeTodo}
-        AddTodoBtnClick={() => navigate('/add')}
+        AddTodoBtnClick={() => navigate('add')}
         handleDelete={handleDelete}
         handleUpdate={handleUpdate}
         SearchBtnClick={() => navigate('select')}
