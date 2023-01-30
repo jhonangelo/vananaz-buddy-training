@@ -7,6 +7,11 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+  width: 100%;
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: 12px;
 `;
 
 export type Props = {
@@ -48,7 +53,7 @@ const Component = ({ submitLogin }: Props) => {
           setFormData({ ...formData, password: event.target.value });
         }}
       />
-      <Button type='submit' buttonType='primary' label='Login' />
+      <StyledButton type='submit' buttonType='primary' label='Login' />
     </Container>
   );
 };
