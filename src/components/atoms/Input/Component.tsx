@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
 import { ReactComponent as Delete } from './Icons/delete.svg';
 
-const StyledDiv = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const StyledLabel = styled.label`
+const Label = styled.label`
   color: ${theme.colors.gray3};
   font-weight: 400;
   font-size: 14px;
@@ -16,7 +16,7 @@ const StyledLabel = styled.label`
   margin-bottom: 11px;
 `;
 
-const InputContainer = styled.form<Props>`
+const InputContainer = styled.div`
   display: flex;
   background: ${theme.colors.white};
   width: 100%;
@@ -58,85 +58,34 @@ const IconWrapper = styled.button`
 
 export type Props = {
   label?: string;
-  type?: 'text' | 'email' | 'password' | 'number';
+  type: string;
+  value: string | number;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   hasClearButton?: boolean;
-  currentValue?: string;
-  formSubmit?: (input: string) => void;
-  setUpdatedValue?: React.Dispatch<React.SetStateAction<string>>;
-  onChangeText?: (input: string) => void;
+  clearInput?: () => void;
 };
 
-const Component = ({
+const Input = ({
   label,
   type,
-  currentValue,
+  value,
+  onChange,
   hasClearButton,
-  formSubmit,
-  setUpdatedValue,
-  onChangeText,
-}: Props): React.ReactElement => {
-  const [input, setInput] = useState('');
-  const [age, setAge] = useState<number>(0);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    input && input.length > 0 && formSubmit?.(input);
-    currentValue && currentValue.length > 0 && formSubmit?.(currentValue);
-    setInput('');
-    setUpdatedValue?.('');
-  };
-
-  const handleChangeText = (textValue: string) => {
-    setInput(textValue);
-    onChangeText?.(textValue);
-  };
-
-  const clearInput = () => {
-    setInput('');
-    handleChangeText?.('');
-  };
-
+  clearInput,
+}: Props) => {
   return (
-    <StyledDiv>
-      {label && <StyledLabel>{label}</StyledLabel>}
-      <InputContainer onSubmit={handleSubmit} formSubmit={formSubmit}>
-        {currentValue ? (
-          <TextInput
-            type={type}
-            value={currentValue}
-            onChange={(event) => setUpdatedValue?.(event.target.value)}
-          />
-        ) : onChangeText ? (
-          <TextInput
-            type={type}
-            value={input}
-            onChange={(event) => handleChangeText(event.target.value)}
-          />
-        ) : type === 'number' ? (
-          <TextInput
-            type={type}
-            value={age}
-            onChange={(event) => {
-              const value = parseFloat(event.target.value.replace(/\D/g, ''));
-              setAge(value);
-            }}
-          />
-        ) : (
-          <TextInput
-            type={type}
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-          />
+    <Container>
+      {label && <Label>{label}</Label>}
+      <InputContainer>
+        <TextInput type={type} value={value} onChange={onChange} />
+        {hasClearButton && (
+          <IconWrapper>
+            <Delete onClick={clearInput} />
+          </IconWrapper>
         )}
-
-        {hasClearButton &&
-          (input.length > 0 || (currentValue && currentValue.length > 0)) && (
-            <IconWrapper>
-              <Delete onClick={clearInput} />
-            </IconWrapper>
-          )}
       </InputContainer>
-    </StyledDiv>
+    </Container>
   );
 };
 
-export default Component;
+export default Input;
