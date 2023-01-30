@@ -25,7 +25,7 @@ export const UserContextProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const loginUser = async (user: User) => {
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         'https://dummyjson.com/auth/login',
         {
           username: user.username,
@@ -33,12 +33,11 @@ export const UserContextProvider = ({ children }: Props) => {
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
-      console.log(data);
       navigate('/todos');
-      showToastSuccess('Login success');
-    } catch (error) {
+      showToastSuccess('Login successful');
+    } catch (error: any) {
       console.log(error);
-      showToastError('Login failed');
+      showToastError(error.response?.data?.message || 'An error occured');
     }
   };
   return (
