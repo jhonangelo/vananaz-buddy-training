@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BackButton } from '../../atoms/BackButton';
 import { Input } from '../../atoms/Input';
-import { ToastNotification } from '../../atoms/ToastNotification';
-import { showToast } from '../../atoms/ToastNotification/Component';
 
-const Container = styled.div`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -13,19 +11,36 @@ const Container = styled.div`
 `;
 
 export type Props = {
-  formSubmit: (input: string) => void;
+  formSubmit: (input: string, event: React.FormEvent<HTMLFormElement>) => void;
 };
 
 const Component = ({ formSubmit }: Props) => {
-  const handleFormSubmit = (input: string) => {
-    formSubmit(input);
-    showToast('To do saved');
+  const [input, setInput] = useState<string>('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setInput(event.target.value);
   };
+
+  const clearInput = () => {
+    setInput('');
+  };
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    formSubmit(input, event);
+    clearInput();
+  };
+
   return (
-    <Container>
+    <Container onSubmit={(event) => handleFormSubmit(event)}>
       <BackButton label='Add to do' />
-      <Input type='text' hasClearButton formSubmit={handleFormSubmit} />
-      <ToastNotification duration={1500} position='bottom-center' />
+      <Input
+        type='text'
+        value={input}
+        hasClearButton
+        onChange={handleChange}
+        clearInput={clearInput}
+      />
     </Container>
   );
 };
