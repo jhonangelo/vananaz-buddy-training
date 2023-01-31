@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
+import { Todo } from '../../../hooks/todos/hooks';
 import { BackButton } from '../../atoms/BackButton';
 import { Input } from '../../atoms/Input';
 import { SelectList } from '../../organisms/SelectList';
@@ -43,12 +44,6 @@ const QuoteMessage = styled.p`
   color: ${theme.colors.gray3};
   margin-bottom: 6px;
 `;
-
-interface Todo {
-  id: number;
-  todo: string;
-  completed: boolean;
-}
 
 export type Props = {
   data?: Todo[];

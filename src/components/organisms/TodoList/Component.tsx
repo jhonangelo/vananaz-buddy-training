@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Todo } from '../../../hooks/todos/hooks';
 import { TodoListItem } from '../../molecule/TodoListItem';
 
 const ListContainer = styled.div`
@@ -9,12 +10,6 @@ const ListContainer = styled.div`
   gap: 16px;
   width: 100%;
 `;
-
-interface Todo {
-  id: number;
-  todo: string;
-  completed: boolean;
-}
 
 export type Props = {
   data?: Todo[];

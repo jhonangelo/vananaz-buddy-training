@@ -1,5 +1,6 @@
 import { styled } from '@storybook/theming';
 import React, { useState } from 'react';
+import { User } from '../../../hooks/users/hooks';
 import { Button } from '../../atoms/Button';
 import { Input } from '../../atoms/Input';
 
@@ -17,8 +18,6 @@ const StyledButton = styled(Button)`
 export type Props = {
   submitLogin: (user: User) => void;
 };
-
-type User = { username: string; password: string };
 
 const Component = ({ submitLogin }: Props) => {
   const [formData, setFormData] = useState<User>({
