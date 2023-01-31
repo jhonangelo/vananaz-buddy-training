@@ -12,8 +12,8 @@ const ListContainer = styled.div`
 
 interface Todo {
   id: number;
-  text: string;
-  isDone: boolean;
+  todo: string;
+  completed: boolean;
 }
 
 export type Props = {
@@ -32,16 +32,16 @@ const Component = ({
   isOpen,
 }: Props) => {
   const sortedTodoData = data?.sort(
-    (x, y) => Number(x.isDone) - Number(y.isDone)
+    (x, y) => Number(x.completed) - Number(y.completed)
   );
   return (
     <ListContainer>
       {sortedTodoData?.map((item) =>
-        item.isDone ? (
+        item.completed ? (
           <TodoListItem
             key={item.id}
-            isDone={item.isDone}
-            text={item.text}
+            isDone={item.completed}
+            text={item.todo}
             handleUpdate={() => handleUpdate(item.id)}
             handleDelete={() => handleDelete(item.id)}
             isOpen={isOpen}
@@ -49,8 +49,8 @@ const Component = ({
         ) : (
           <TodoListItem
             key={item.id}
-            isDone={item.isDone}
-            text={item.text}
+            isDone={item.completed}
+            text={item.todo}
             itemClick={() => itemClick(item.id)}
             handleUpdate={() => handleUpdate(item.id)}
             handleDelete={() => handleDelete(item.id)}

@@ -13,8 +13,8 @@ const SelectListContainer = styled.div`
 
 type Todo = {
   id: number;
-  text: string;
-  isDone: boolean;
+  todo: string;
+  completed: boolean;
 };
 
 export type Props = {
@@ -57,12 +57,12 @@ const Component = ({ data, deleteSelected, completeSelected }: Props) => {
     <SelectListContainer>
       {data?.map(
         (item) =>
-          !item.isDone && (
+          !item.completed && (
             <CheckboxItem
               checked={checkedItems.includes(item.id)}
               key={item.id}
               onCheck={() => handleCheck(item.id)}
-              text={item.text}
+              text={item.todo}
             />
           )
       )}

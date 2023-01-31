@@ -32,7 +32,7 @@ const Component = (props: Props) => {
   useEffect(() => {
     if (searchTerm.length > 0) {
       const results = todos.filter((item) =>
-        item.text.toLowerCase().includes(searchTerm.toLowerCase())
+        item.todo.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResults(results);
     } else {

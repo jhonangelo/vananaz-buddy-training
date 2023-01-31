@@ -1,4 +1,12 @@
-import React, { useReducer, createContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import React, {
+  useReducer,
+  useContext,
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
+import { UserContext, UserContextType } from '../users/hooks';
 
 type Props = {
   children: React.ReactNode;
@@ -6,8 +14,8 @@ type Props = {
 
 export type Todo = {
   id: number;
-  text: string;
-  isDone: boolean;
+  todo: string;
+  completed: boolean;
 };
 
 export type TodoContextType = {
@@ -70,11 +78,13 @@ export const ContextProvider = ({ children }: Props) => {
   const [currentId, setCurrentId] = useState<number>(0);
   const [currentTodo, setCurrentTodo] = useState<string>('');
 
+  const { loggedUser } = useContext<UserContextType>(UserContext);
+
   const addTodo = (text: string) => {
     const newId = todos.reduce((max, obj) => {
       return Math.max(max, obj.id) + 1;
     }, 0);
-    const newTodoItem = { id: newId, text, isDone: false };
+    const newTodoItem = { id: newId, todo: text, completed: false };
     dispatch({
       type: 'add-todo',
       payload: newTodoItem,
@@ -132,22 +142,21 @@ export const ContextProvider = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    const localStorageData = JSON.parse(
-      localStorage.getItem('todos') || '[]'
-    ) as Todo[];
-    localStorageData?.forEach((todo: Todo) => {
-      dispatch({ type: 'add-todo', payload: todo });
-    });
-  }, []);
-
-  useEffect(() => {
-    const prevTodos = JSON.parse(
-      localStorage.getItem('todos') || '[]'
-    ) as Todo[];
-    if (JSON.stringify(prevTodos) !== JSON.stringify(todos)) {
-      localStorage.setItem('todos', JSON.stringify(todos));
-    }
-  }, [todos]);
+    const fetchTodos = async () => {
+      try {
+        const response = await axios.get(
+          `https://dummyjson.com/todos/user/${loggedUser.id}`
+        );
+        const data = await response.data.todos;
+        data?.forEach((todo: Todo) => {
+          dispatch({ type: 'add-todo', payload: todo });
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loggedUser.id && !todos.length && fetchTodos();
+  }, [loggedUser, todos]);
 
   return (
     <TodoContext.Provider

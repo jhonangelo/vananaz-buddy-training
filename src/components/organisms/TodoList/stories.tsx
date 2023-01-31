@@ -23,11 +23,15 @@ const Template: Story<Props> = (args: Props) => {
 export const Default = Template.bind({});
 Default.args = {
   data: [
-    { id: 1, text: 'Get the parcel from LBC', isDone: false },
-    { id: 2, text: 'Get my mac fixed', isDone: false },
-    { id: 3, text: 'Book ticket to Palawan', isDone: false },
-    { id: 4, text: 'Find hotel recommendation in Palawan', isDone: false },
-    { id: 5, text: 'Buy a graduation gift for Sarah', isDone: false },
+    { id: 1, todo: 'Get the parcel from LBC', completed: false },
+    { id: 2, todo: 'Get my mac fixed', completed: false },
+    { id: 3, todo: 'Book ticket to Palawan', completed: false },
+    {
+      id: 4,
+      todo: 'Find hotel recommendation in Palawan',
+      completed: false,
+    },
+    { id: 5, todo: 'Buy a graduation gift for Sarah', completed: false },
   ],
   handleDelete: action('To do item deleted'),
   handleUpdate: action('To do item updated'),

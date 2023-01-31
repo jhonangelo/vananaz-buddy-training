@@ -29,9 +29,9 @@ const Template: Story<Props> = (args: Props) => {
 export const withData = Template.bind({});
 withData.args = {
   data: [
-    { id: 1, text: 'Get parcel from LBC', isDone: false },
-    { id: 2, text: 'Book an appointment', isDone: false },
-    { id: 3, text: 'Walk the dog', isDone: false },
+    { id: 1, todo: 'Get parcel from LBC', completed: false },
+    { id: 2, todo: 'Book an appointment', completed: false },
+    { id: 3, todo: 'Walk the dog', completed: false },
   ],
   deleteSelected: action('selected-todo-deleted'),
   completeSelected: action('selected-todo-completed'),
