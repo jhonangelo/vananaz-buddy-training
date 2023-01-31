@@ -8,6 +8,7 @@ import { RoundedIconBtn } from '../../atoms/RoundedIconBtn';
 import { ReactComponent as EmptyIcon } from './Icons/empty.svg';
 import { TextLink } from '../../atoms/TextLink';
 import { TodoList } from '../../organisms/TodoList';
+import { Todo } from '../../../hooks/todos/hooks';
 
 const Container = styled.div`
   position: relative;
@@ -80,12 +81,6 @@ const ButtonWrapper = styled.div`
   bottom: 21px;
   right: 24px;
 `;
-
-interface Todo {
-  id: number;
-  todo: string;
-  completed: boolean;
-}
 
 export type Props = {
   data?: Todo[];

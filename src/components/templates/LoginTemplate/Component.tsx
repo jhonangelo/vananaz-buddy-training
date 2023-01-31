@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
+import { User } from '../../../hooks/users/hooks';
 import { LoginForm } from '../../organisms/LoginForm';
 import { ReactComponent as HeroIcon } from './Icons/hero_icon.svg';
 
@@ -41,8 +42,6 @@ const FormWrapper = styled.div`
 export type Props = {
   submitLogin: (user: User) => void;
 };
-
-type User = { username: string; password: string };
 
 const Component = ({ submitLogin }: Props) => {
   return (

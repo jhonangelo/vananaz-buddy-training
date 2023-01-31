@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../constants/themes';
+import { Todo } from '../../../hooks/todos/hooks';
 import { BackButton } from '../../atoms/BackButton';
 import { TextLink } from '../../atoms/TextLink';
 import { SelectList } from '../../organisms/SelectList';
@@ -42,12 +43,6 @@ const SelectItemListWrapper = styled.div`
   flex: 1;
   overflow-y: auto;
 `;
-
-interface Todo {
-  id: number;
-  todo: string;
-  completed: boolean;
-}
 
 export type Props = {
   data: Todo[];

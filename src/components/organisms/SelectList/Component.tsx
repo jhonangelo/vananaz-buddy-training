@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Todo } from '../../../hooks/todos/hooks';
 import { CheckboxItem } from '../../molecule/CheckboxItem';
 import { SelectModal } from '../../molecule/SelectModal';
 
@@ -10,12 +11,6 @@ const SelectListContainer = styled.div`
   gap: 20px;
   padding: 12px;
 `;
-
-type Todo = {
-  id: number;
-  todo: string;
-  completed: boolean;
-};
 
 export type Props = {
   data: Todo[];
