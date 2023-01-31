@@ -45,8 +45,8 @@ const SelectItemListWrapper = styled.div`
 
 interface Todo {
   id: number;
-  text: string;
-  isDone: boolean;
+  todo: string;
+  completed: boolean;
 }
 
 export type Props = {
@@ -60,7 +60,7 @@ const Component = ({ data = [], completeSelected, deleteSelected }: Props) => {
     <Container>
       <BackButton label='Select to do' />
       <SelectItemListWrapper>
-        {data.filter((item) => item.isDone === false).length > 0 ? (
+        {data.filter((item) => item.completed === false).length > 0 ? (
           <SelectListContainer>
             <SelectList
               data={data}

@@ -18,10 +18,14 @@ const Template: Story<Props> = (args: Props) => <SelectList {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   data: [
-    { id: 1, text: 'Find a hotel recommendation in Palawan', isDone: false },
-    { id: 2, text: 'Make a dentist appointment', isDone: false },
-    { id: 3, text: 'Buy feed for fish and dog', isDone: false },
-    { id: 4, text: 'Cut the grass', isDone: false },
+    {
+      id: 1,
+      todo: 'Find a hotel recommendation in Palawan',
+      completed: false,
+    },
+    { id: 2, todo: 'Make a dentist appointment', completed: false },
+    { id: 3, todo: 'Buy feed for fish and dog', completed: false },
+    { id: 4, todo: 'Cut the grass', completed: false },
   ],
   completeSelected: action('complete-selected'),
   deleteSelected: action('delete-selected'),

@@ -52,7 +52,7 @@ const Template: Story<Props> = (args: Props) => {
 
 export const withData = Template.bind({});
 withData.args = {
-  data: [{ id: 1, text: 'Get parcel from FBI', isDone: false }],
+  data: [{ id: 1, todo: 'Get parcel from FBI', completed: false }],
   homeBtnClick: action('navigate-home'),
   SearchInputClick: action('search-list-navigate'),
   SearchBtnClick: action('search-button-navigate'),

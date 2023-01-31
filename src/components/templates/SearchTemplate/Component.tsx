@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import theme from '../../../constants/themes';
 import { BackButton } from '../../atoms/BackButton';
 import { Input } from '../../atoms/Input';
-
 import { SelectList } from '../../organisms/SelectList';
 import { ReactComponent as EmptyIcon } from './Icons/empty.svg';
 
@@ -47,8 +46,8 @@ const QuoteMessage = styled.p`
 
 interface Todo {
   id: number;
-  text: string;
-  isDone: boolean;
+  todo: string;
+  completed: boolean;
 }
 
 export type Props = {

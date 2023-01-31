@@ -83,8 +83,8 @@ const ButtonWrapper = styled.div`
 
 interface Todo {
   id: number;
-  text: string;
-  isDone: boolean;
+  todo: string;
+  completed: boolean;
 }
 
 export type Props = {
