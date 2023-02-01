@@ -165,6 +165,7 @@ export const ContextProvider = ({ children }: Props) => {
       return response.data.todos;
     },
     enabled: !!user,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
