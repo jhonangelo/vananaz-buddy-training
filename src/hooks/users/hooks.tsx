@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect } from 'react';
 import axios from 'axios';
 import {
   showToastSuccess,
@@ -15,28 +15,17 @@ export type User = {
   password: string;
 };
 
-type LoggedUserType = {
-  id: number;
-  token: string;
-};
-
 export type UserContextType = {
-  loggedUser: LoggedUserType;
   loginUser: (user: User) => void;
   logoutUser: () => void;
 };
 
 export const UserContext = createContext<UserContextType>({
-  loggedUser: { id: 0, token: '' },
   loginUser: (user: User) => {},
   logoutUser: () => {},
 });
 
 export const UserContextProvider = ({ children }: Props) => {
-  const [loggedUser, setLoggedUser] = useState<{ id: number; token: string }>({
-    id: 0,
-    token: '',
-  });
   const navigate = useNavigate();
   const loginUser = async (user: User) => {
     try {
@@ -73,11 +62,10 @@ export const UserContextProvider = ({ children }: Props) => {
     if (Object.keys(user).length && currentPage === '/') {
       navigate('/todos');
     }
-    setLoggedUser(user);
   }, [navigate]);
 
   return (
-    <UserContext.Provider value={{ loggedUser, loginUser, logoutUser }}>
+    <UserContext.Provider value={{ loginUser, logoutUser }}>
       {children}
     </UserContext.Provider>
   );
