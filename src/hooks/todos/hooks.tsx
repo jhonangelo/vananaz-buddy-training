@@ -1,12 +1,6 @@
 import axios from 'axios';
-import React, {
-  useReducer,
-  useContext,
-  createContext,
-  useEffect,
-  useState,
-} from 'react';
-import { UserContext, UserContextType } from '../users/hooks';
+import React, { useReducer, createContext, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   children: React.ReactNode;
@@ -78,8 +72,6 @@ export const ContextProvider = ({ children }: Props) => {
   const [currentId, setCurrentId] = useState<number>(0);
   const [currentTodo, setCurrentTodo] = useState<string>('');
 
-  const { loggedUser } = useContext<UserContextType>(UserContext);
-
   const addTodo = (text: string) => {
     const newId = todos.reduce((max, obj) => {
       return Math.max(max, obj.id) + 1;
@@ -141,22 +133,27 @@ export const ContextProvider = ({ children }: Props) => {
     setCurrentTodo(current);
   };
 
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+
+  const { data, isFetched, status } = useQuery({
+    queryKey: ['todo-data', user.id],
+    queryFn: async () => {
+      const response = await axios.get(
+        `https://dummyjson.com/todos/user/${user.id}`
+      );
+      return response.data.todos;
+    },
+    enabled: !!user.id,
+  });
+
   useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const response = await axios.get(
-          `https://dummyjson.com/todos/user/${loggedUser.id}`
-        );
-        const data = await response.data.todos;
-        data?.forEach((todo: Todo) => {
-          dispatch({ type: 'add-todo', payload: todo });
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loggedUser.id && !todos.length && fetchTodos();
-  }, [loggedUser, todos]);
+    if (isFetched && status === 'success') {
+      data.forEach((todo: Todo) => {
+        dispatch({ type: 'add-todo', payload: todo });
+      });
+    }
+  }, [dispatch, isFetched, data, status]);
 
   return (
     <TodoContext.Provider
