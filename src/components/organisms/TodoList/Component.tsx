@@ -14,7 +14,7 @@ const ListContainer = styled.div`
 export type Props = {
   data?: Todo[];
   itemClick: (id: number) => void;
-  handleUpdate: (id: number) => void;
+  handleUpdate: (todo: Todo) => void;
   handleDelete: (id: number) => void;
   isOpen: boolean;
 };
@@ -37,7 +37,7 @@ const Component = ({
             key={item.id}
             isDone={item.completed}
             text={item.todo}
-            handleUpdate={() => handleUpdate(item.id)}
+            handleUpdate={() => console.log(item)}
             handleDelete={() => handleDelete(item.id)}
             isOpen={isOpen}
           />
@@ -47,7 +47,7 @@ const Component = ({
             isDone={item.completed}
             text={item.todo}
             itemClick={() => itemClick(item.id)}
-            handleUpdate={() => handleUpdate(item.id)}
+            handleUpdate={() => handleUpdate(item)}
             handleDelete={() => handleDelete(item.id)}
             isOpen={isOpen}
           />

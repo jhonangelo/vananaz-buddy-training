@@ -28,6 +28,6 @@ const Template: Story<Props> = (args: Props) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  currentValue: 'Get parcel from LBC',
+  currentTodo: { id: 0, todo: 'Get parcel from LBC', completed: false },
   updateSubmit: action('updated-value'),
 };
