@@ -5,6 +5,7 @@ import {
   showToastError,
   showToastSuccess,
 } from '../../components/atoms/ToastNotification/Component';
+import { useNavigate } from 'react-router';
 
 type Props = {
   children: React.ReactNode;
@@ -23,11 +24,9 @@ export type TodoContextType = {
   completeTodo: (id: number) => void;
   deleteSelected: (checkedItems: number[]) => void;
   completeSelected: (checkedItems: number[]) => void;
-  currentId: number;
-  setCurrentId: (currentId: number) => void;
   updateTodo: (updatedText: string) => void;
-  fetchCurrentText: (id: number) => void;
-  currentTodo: string;
+  currentTodo: Todo;
+  setCurrentTodo: (todo: Todo) => void;
 };
 
 export const TodoContext = createContext<TodoContextType>({
@@ -37,11 +36,9 @@ export const TodoContext = createContext<TodoContextType>({
   completeTodo: (id: number) => {},
   deleteSelected: (checkedItems: number[]) => {},
   completeSelected: (checkedItems: number[]) => {},
-  currentId: 0,
-  setCurrentId: (currentId: number) => {},
   updateTodo: (updatedText: string) => {},
-  fetchCurrentText: (id: number) => {},
-  currentTodo: '',
+  currentTodo: { id: 0, todo: '', completed: false },
+  setCurrentTodo: (todo: Todo) => {},
 });
 
 type TodoAction = {
@@ -73,12 +70,15 @@ const reducer = (state: Todo[], action: TodoAction) => {
 
 export const ContextProvider = ({ children }: Props) => {
   const [todos, dispatch] = useReducer(reducer, []);
-  const [currentId, setCurrentId] = useState<number>(0);
-  const [currentTodo, setCurrentTodo] = useState<string>('');
+  const [currentTodo, setCurrentTodo] = useState<Todo>({
+    id: 0,
+    todo: '',
+    completed: false,
+  });
   const storedUser = localStorage.getItem('user');
   const user = storedUser ? JSON.parse(storedUser) : null;
   const base_url = 'https://dummyjson.com/todos';
-
+  const navigate = useNavigate();
   const addTodoMutation = useMutation({
     mutationFn: async (text: string) => {
       const response = await axios.post(
@@ -122,7 +122,7 @@ export const ContextProvider = ({ children }: Props) => {
 
   const completeTodo = (id: number) => {
     const item = todos.find((item) => item.id === id);
-    if (item) item.isDone = true;
+    if (item) item.completed = true;
     const filteredItem = todos.filter((item) => item.id !== id);
     dispatch({ type: 'complete-selected', payload: [...filteredItem, item] });
   };
@@ -133,7 +133,7 @@ export const ContextProvider = ({ children }: Props) => {
     );
     const completedItems = filteredCheckItem.map((item) => ({
       ...item,
-      isDone: true,
+      completed: true,
     }));
     const updatedTodos = todos.map((item) =>
       checkedItems.includes(item.id)
@@ -144,18 +144,43 @@ export const ContextProvider = ({ children }: Props) => {
       type: 'complete-selected',
       payload: updatedTodos,
     });
+    navigate('/');
+    showToastSuccess('To do completed');
   };
 
-  const updateTodo = (updatedText: string) => {
-    const filteredTodos = todos.filter((item) => item.id !== currentId);
-    const updatedTodo = todos.find((item) => item.id === currentId);
-    updatedTodo.text = updatedText;
-    dispatch({ type: 'update-todo', payload: [...filteredTodos, updatedTodo] });
+  const updateQuery = async (todo: Todo) => {
+    try {
+      const response = await axios.put(
+        `${base_url}/${currentTodo.id}`,
+        {
+          todo,
+        },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const fetchCurrentText = (id: number) => {
-    const current = todos.find((item) => item.id === id).text;
-    setCurrentTodo(current);
+  const updateTodo = (text: string) => {
+    currentTodo.todo = text;
+    updateQuery(currentTodo)
+      .then((res) => {
+        const filteredTodos = todos.filter((item) => item.id !== res.id);
+        const updatedTodo = todos.find((item) => item.id === res.id);
+        dispatch({
+          type: 'update-todo',
+          payload: [...filteredTodos, updatedTodo],
+        });
+        navigate('todos');
+        showToastSuccess('Todo updated');
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate('todos');
+        showToastError('Todo update failed');
+      });
   };
 
   const { data, isFetched, status } = useQuery({
@@ -184,11 +209,9 @@ export const ContextProvider = ({ children }: Props) => {
         completeTodo,
         deleteSelected,
         completeSelected,
-        currentId,
-        setCurrentId,
         updateTodo,
-        fetchCurrentText,
         currentTodo,
+        setCurrentTodo,
       }}
     >
       {children}

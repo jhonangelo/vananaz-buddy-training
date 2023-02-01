@@ -13,8 +13,6 @@ const Component = (props: Props) => {
 
   const handleCompleteSelected = (checkedItems: number[]) => {
     completeSelected(checkedItems);
-    navigate('/');
-    showToastSuccess('To do completed');
   };
 
   const handleDeleteSelected = (checkedItems: number[]) => {

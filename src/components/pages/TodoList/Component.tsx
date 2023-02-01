@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodoListTemplate } from '../../templates/TodoListTemplate';
-import { TodoContextType, TodoContext } from '../../../hooks/todos/hooks';
+import { TodoContextType, TodoContext, Todo } from '../../../hooks/todos/hooks';
 import { DeleteModal } from '../../molecule/DeleteModal';
 import { showToastSuccess } from '../../atoms/ToastNotification/Component';
 import { UserContext, UserContextType } from '../../../hooks/users/hooks';
@@ -9,14 +9,8 @@ import { UserContext, UserContextType } from '../../../hooks/users/hooks';
 type Props = {};
 
 const Component = (props: Props) => {
-  const {
-    todos,
-    deleteTodo,
-    completeTodo,
-    currentId,
-    setCurrentId,
-    fetchCurrentText,
-  } = useContext<TodoContextType>(TodoContext);
+  const { todos, deleteTodo, completeTodo, setCurrentTodo } =
+    useContext<TodoContextType>(TodoContext);
   const { logoutUser } = useContext<UserContextType>(UserContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,20 +21,16 @@ const Component = (props: Props) => {
   };
 
   const handleDelete = (id: number) => {
-    setCurrentId(id);
     setIsOpen(true);
   };
 
   const handleConfirmDelete = () => {
     closeModal();
-    deleteTodo(currentId);
-    setCurrentId(0);
     showToastSuccess('To do deleted');
   };
 
-  const handleUpdate = (id: number) => {
-    setCurrentId(id);
-    fetchCurrentText(id);
+  const handleUpdate = (todo: Todo) => {
+    setCurrentTodo(todo);
     navigate('update');
   };
 

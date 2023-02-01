@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Todo } from '../../../hooks/todos/hooks';
 import { BackButton } from '../../atoms/BackButton';
 import { Input } from '../../atoms/Input';
 
@@ -15,11 +16,19 @@ const UpdateForm = styled.form``;
 
 export type Props = {
   updateSubmit: (input: string) => void;
-  currentValue: string;
+  currentTodo: Todo;
 };
 
-const Component = ({ updateSubmit, currentValue }: Props) => {
-  const [input, setInput] = useState<string>(currentValue);
+const Component = ({ updateSubmit, currentTodo }: Props) => {
+  const [input, setInput] = useState<string>(currentTodo.todo);
+
+  const handleUpdate = (
+    event: React.FormEvent<HTMLFormElement>,
+    input: string
+  ) => {
+    event.preventDefault();
+    updateSubmit(input);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
@@ -31,7 +40,7 @@ const Component = ({ updateSubmit, currentValue }: Props) => {
   return (
     <Container>
       <BackButton label='Update to do' />
-      <UpdateForm onSubmit={() => updateSubmit(input)}>
+      <UpdateForm onSubmit={(event) => handleUpdate(event, input)}>
         <Input
           type='text'
           value={input}
