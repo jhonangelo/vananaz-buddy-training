@@ -1,6 +1,10 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { useReducer, createContext, useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import {
+  showToastError,
+  showToastSuccess,
+} from '../../components/atoms/ToastNotification/Component';
 
 type Props = {
   children: React.ReactNode;
@@ -71,16 +75,37 @@ export const ContextProvider = ({ children }: Props) => {
   const [todos, dispatch] = useReducer(reducer, []);
   const [currentId, setCurrentId] = useState<number>(0);
   const [currentTodo, setCurrentTodo] = useState<string>('');
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  const base_url = 'https://dummyjson.com/todos';
 
-  const addTodo = (text: string) => {
-    const newId = todos.reduce((max, obj) => {
-      return Math.max(max, obj.id) + 1;
-    }, 0);
-    const newTodoItem = { id: newId, todo: text, completed: false };
-    dispatch({
-      type: 'add-todo',
-      payload: newTodoItem,
-    });
+  const addTodoMutation = useMutation({
+    mutationFn: async (text: string) => {
+      const response = await axios.post(
+        `${base_url}/add`,
+        { todo: text, completed: false, userId: user.id },
+        {
+          headers: { 'Content-type': 'application/json' },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      const { todo, completed } = data;
+      const id = todos.reduce((max, obj) => {
+        return Math.max(max, obj.id) + 1;
+      }, 0);
+      dispatch({ type: 'add-todo', payload: { id, todo, completed } });
+      showToastSuccess('To do saved');
+    },
+    onError: (err: AxiosError) => {
+      console.log(err.message);
+      showToastError('To do not saved');
+    },
+  });
+
+  const addTodo = (todo: string) => {
+    addTodoMutation.mutate(todo);
   };
 
   const deleteTodo = (id: number) => {
@@ -133,18 +158,13 @@ export const ContextProvider = ({ children }: Props) => {
     setCurrentTodo(current);
   };
 
-  const storedUser = localStorage.getItem('user');
-  const user = storedUser ? JSON.parse(storedUser) : null;
-
   const { data, isFetched, status } = useQuery({
-    queryKey: ['todo-data', user.id],
+    queryKey: ['todo-data', user?.id],
     queryFn: async () => {
-      const response = await axios.get(
-        `https://dummyjson.com/todos/user/${user.id}`
-      );
+      const response = await axios.get(`${base_url}/user/${user.id}`);
       return response.data.todos;
     },
-    enabled: !!user.id,
+    enabled: !!user,
   });
 
   useEffect(() => {
