@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { TodoListTemplate } from '../../templates/TodoListTemplate';
 import { TodoContextType, TodoContext, Todo } from '../../../hooks/todos/hooks';
 import { DeleteModal } from '../../molecule/DeleteModal';
-import { showToastSuccess } from '../../atoms/ToastNotification/Component';
 import { UserContext, UserContextType } from '../../../hooks/users/hooks';
 
 type Props = {};
 
 const Component = (props: Props) => {
-  const { todos, deleteTodo, completeTodo, setCurrentTodo } =
+  const { todos, currentTodo, deleteTodo, completeTodo, setCurrentTodo } =
     useContext<TodoContextType>(TodoContext);
   const { logoutUser } = useContext<UserContextType>(UserContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,13 +19,14 @@ const Component = (props: Props) => {
     setIsOpen(false);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (todo: Todo) => {
+    setCurrentTodo(todo);
     setIsOpen(true);
   };
 
   const handleConfirmDelete = () => {
     closeModal();
-    showToastSuccess('To do deleted');
+    deleteTodo(currentTodo);
   };
 
   const handleUpdate = (todo: Todo) => {

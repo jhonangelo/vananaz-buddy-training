@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import React, { useReducer, createContext, useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import {
@@ -20,7 +20,7 @@ export type Todo = {
 export type TodoContextType = {
   todos: Todo[];
   addTodo: (text: string) => void;
-  deleteTodo: (id: number) => void;
+  deleteTodo: (todo: Todo) => void;
   completeTodo: (id: number) => void;
   deleteSelected: (checkedItems: number[]) => void;
   completeSelected: (checkedItems: number[]) => void;
@@ -32,7 +32,7 @@ export type TodoContextType = {
 export const TodoContext = createContext<TodoContextType>({
   todos: [],
   addTodo: (text: string) => {},
-  deleteTodo: (id: number) => {},
+  deleteTodo: (todo: Todo) => {},
   completeTodo: (id: number) => {},
   deleteSelected: (checkedItems: number[]) => {},
   completeSelected: (checkedItems: number[]) => {},
@@ -79,6 +79,7 @@ export const ContextProvider = ({ children }: Props) => {
   const user = storedUser ? JSON.parse(storedUser) : null;
   const base_url = 'https://dummyjson.com/todos';
   const navigate = useNavigate();
+
   const addTodoMutation = useMutation({
     mutationFn: async (text: string) => {
       const response = await axios.post(
@@ -108,16 +109,50 @@ export const ContextProvider = ({ children }: Props) => {
     addTodoMutation.mutate(todo);
   };
 
-  const deleteTodo = (id: number) => {
-    const filteredTodo = todos.filter((todo) => todo.id !== id);
-    dispatch({ type: 'delete-todo', payload: filteredTodo });
+  const deleteQuery = async () => {
+    try {
+      const response = await axios.delete(`${base_url}/${currentTodo.id}`);
+      return await response.data;
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
-  const deleteSelected = (checkedItems: number[]) => {
+  const deleteTodo = (todo: Todo) => {
+    deleteQuery()
+      .then((res) => {
+        const filteredTodo = todos.filter((item) => item.id !== todo.id);
+        dispatch({ type: 'delete-todo', payload: filteredTodo });
+        showToastSuccess('To do deleted');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteSelectedQuery = async (requests: Promise<AxiosResponse>[]) => {
+    try {
+      const responses = await Promise.all(requests);
+      return responses.map(({ data }) => data);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  const deleteSelected = async (checkedItems: number[]) => {
+    const requests = checkedItems.map((item) =>
+      axios.delete(`${base_url}/${item}`)
+    );
+    const isDeleted = await deleteSelectedQuery(requests);
     const filteredCheckedItems = todos.filter(
       (todo) => !checkedItems.includes(todo.id)
     );
     dispatch({ type: 'delete-selected', payload: filteredCheckedItems });
+    if (isDeleted) {
+      navigate('/');
+      showToastSuccess('To do deleted');
+    }
   };
 
   const completeTodo = (id: number) => {
