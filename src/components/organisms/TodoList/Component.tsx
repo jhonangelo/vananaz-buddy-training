@@ -15,7 +15,7 @@ export type Props = {
   data?: Todo[];
   itemClick: (id: number) => void;
   handleUpdate: (todo: Todo) => void;
-  handleDelete: (id: number) => void;
+  handleDelete: (todo: Todo) => void;
   isOpen: boolean;
 };
 
@@ -38,7 +38,7 @@ const Component = ({
             isDone={item.completed}
             text={item.todo}
             handleUpdate={() => console.log(item)}
-            handleDelete={() => handleDelete(item.id)}
+            handleDelete={() => handleDelete(item)}
             isOpen={isOpen}
           />
         ) : (
@@ -48,7 +48,7 @@ const Component = ({
             text={item.todo}
             itemClick={() => itemClick(item.id)}
             handleUpdate={() => handleUpdate(item)}
-            handleDelete={() => handleDelete(item.id)}
+            handleDelete={() => handleDelete(item)}
             isOpen={isOpen}
           />
         )

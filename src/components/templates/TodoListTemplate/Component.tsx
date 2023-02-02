@@ -89,7 +89,7 @@ export type Props = {
   SearchBtnClick: () => void;
   itemClick: (id: number) => void;
   handleUpdate: (todo: Todo) => void;
-  handleDelete: (id: number) => void;
+  handleDelete: (todo: Todo) => void;
   AddTodoBtnClick: () => void;
 
   isOpen: boolean;
