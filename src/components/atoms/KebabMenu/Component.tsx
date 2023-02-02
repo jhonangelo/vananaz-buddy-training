@@ -11,9 +11,10 @@ const PopupMenu = styled.div`
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   width: 115px;
+  height: 71px;
   padding: 12px;
   gap: 14px;
-  margin-right: 8px;
+  margin-right: 2px;
 `;
 
 const Button = styled.button`
@@ -25,16 +26,21 @@ const Button = styled.button`
   font-weight: 400;
   line-height: 16px;
 
+  &:hover {
+    color: ${theme.colors.blue1};
+  }
+
   &:focus {
     outline: none;
   }
 `;
 
-const KebabButton = styled(Kebab)<{ isOpen: boolean }>`
+const KebabButton = styled(Kebab)<{ isopen: string }>`
   cursor: pointer;
   min-width: 20px;
   circle {
-    fill: ${(props) => (props.isOpen ? `${theme.colors.blue1}` : '#C4C4C4')};
+    fill: ${(props) =>
+      props.isopen === 'true' ? theme.colors.blue1 : '#C4C4C4'};
   }
 `;
 
@@ -63,12 +69,7 @@ const Component = ({
   };
   return (
     <Popup
-      trigger={
-        <KebabButton
-          isOpen={isOpen}
-          onClick={() => setIsMenuOpen((preState) => !preState)}
-        />
-      }
+      trigger={<KebabButton isopen={isOpen.toString()} />}
       open={isOpen}
       position='left top'
       on='click'
