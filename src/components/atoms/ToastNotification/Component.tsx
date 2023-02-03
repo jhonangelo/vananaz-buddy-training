@@ -41,6 +41,7 @@ const Component = ({ duration, position }: Props): React.ReactElement => {
           fontSize: '14px',
         },
         position: position,
+        icon: null,
       }}
     />
   );
