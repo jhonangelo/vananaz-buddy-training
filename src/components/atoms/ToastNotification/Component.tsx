@@ -39,6 +39,7 @@ const Component = ({ duration, position }: Props): React.ReactElement => {
           minWidth: '120px',
           height: '32px',
           fontSize: '14px',
+          borderRadius: '4px',
         },
         position: position,
         icon: null,
