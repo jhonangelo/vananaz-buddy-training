@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { LoginTemplate } from '../../templates/LoginTemplate';
 import { UserContextType, UserContext, User } from '../../../hooks/users/hooks';
-import { showToastError } from '../../atoms/ToastNotification/Component';
+import { toast } from 'react-hot-toast';
 
 export type Props = {};
 
@@ -10,7 +10,7 @@ const Component = (props: Props) => {
 
   const handleLogin = (user: User) => {
     if (!user.username.length || !user.password.length) {
-      showToastError('Username/Password is required');
+      toast.error('Username/Password is required');
     } else {
       loginUser(user);
     }

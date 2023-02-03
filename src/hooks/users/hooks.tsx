@@ -1,10 +1,7 @@
 import React, { createContext, useEffect } from 'react';
 import axios from 'axios';
-import {
-  showToastSuccess,
-  showToastError,
-} from '../../components/atoms/ToastNotification/Component';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-hot-toast';
 
 type Props = {
   children: React.ReactNode;
@@ -40,17 +37,17 @@ export const UserContextProvider = ({ children }: Props) => {
       const { id, token } = await response.data;
       localStorage.setItem('user', JSON.stringify({ id, token }));
       navigate('/todos');
-      showToastSuccess('Login successful');
+      toast.success('Login Successful');
+      return response;
     } catch (error: any) {
       console.error(error);
-      showToastError(error.response?.data?.message || 'An error occurred');
+      toast.error(error.response?.data?.message || 'An error occurred');
     }
   };
 
   const logoutUser = () => {
     localStorage.removeItem('user');
     navigate('/');
-    showToastSuccess('Logout successful');
   };
 
   useEffect(() => {

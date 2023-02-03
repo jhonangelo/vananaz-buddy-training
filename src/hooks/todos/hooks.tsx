@@ -1,11 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import React, { useReducer, createContext, useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import {
-  showToastError,
-  showToastSuccess,
-} from '../../components/atoms/ToastNotification/Component';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-hot-toast';
 
 type Props = {
   children: React.ReactNode;
@@ -97,11 +94,11 @@ export const ContextProvider = ({ children }: Props) => {
         return Math.max(max, obj.id) + 1;
       }, 0);
       dispatch({ type: 'add-todo', payload: { id, todo, completed } });
-      showToastSuccess('To do saved');
+      toast.success('To do saved');
     },
     onError: (err: AxiosError) => {
       console.log(err.message);
-      showToastError('To do not saved');
+      toast.success('To do not saved');
     },
   });
 
@@ -123,7 +120,7 @@ export const ContextProvider = ({ children }: Props) => {
       .then((res) => {
         const filteredTodo = todos.filter((item) => item.id !== todo.id);
         dispatch({ type: 'delete-todo', payload: filteredTodo });
-        showToastSuccess('To do deleted');
+        toast.success('To do deleted');
       })
       .catch((err) => {
         console.log(err);
@@ -151,7 +148,7 @@ export const ContextProvider = ({ children }: Props) => {
     dispatch({ type: 'delete-selected', payload: filteredCheckedItems });
     if (isDeleted) {
       navigate('/');
-      showToastSuccess('To do deleted');
+      toast.success('To do deleted');
     }
   };
 
@@ -180,7 +177,7 @@ export const ContextProvider = ({ children }: Props) => {
       payload: updatedTodos,
     });
     navigate('/');
-    showToastSuccess('To do completed');
+    toast.success('To do completed');
   };
 
   const updateQuery = async (todo: Todo) => {
@@ -209,16 +206,16 @@ export const ContextProvider = ({ children }: Props) => {
           payload: [...filteredTodos, updatedTodo],
         });
         navigate('todos');
-        showToastSuccess('Todo updated');
+        toast.success('Todo updated');
       })
       .catch((err) => {
         console.log(err);
         navigate('todos');
-        showToastError('Todo update failed');
+        toast.success('Todo update failed');
       });
   };
 
-  const { data, isFetched, status } = useQuery({
+  const { data, isFetched, isFetching, status } = useQuery({
     queryKey: ['todo-data', user?.id],
     queryFn: async () => {
       const response = await axios.get(`${base_url}/user/${user.id}`);
@@ -229,12 +226,15 @@ export const ContextProvider = ({ children }: Props) => {
   });
 
   useEffect(() => {
+    if (isFetching) {
+      toast.loading('Fetching data...');
+    }
     if (isFetched && status === 'success') {
       data.forEach((todo: Todo) => {
         dispatch({ type: 'add-todo', payload: todo });
       });
     }
-  }, [dispatch, isFetched, data, status]);
+  }, [dispatch, isFetched, isFetching, data, status]);
 
   return (
     <TodoContext.Provider

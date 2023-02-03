@@ -1,5 +1,5 @@
 import React from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import theme from '../../../constants/themes';
 
 export type Props = {
@@ -13,10 +13,6 @@ export type Props = {
     | 'bottom-right';
 };
 
-export const showToastSuccess = (message: string) => toast.success(message);
-
-export const showToastError = (message: string) => toast.error(message);
-
 const Component = ({ duration, position }: Props): React.ReactElement => {
   return (
     <Toaster
@@ -28,12 +24,18 @@ const Component = ({ duration, position }: Props): React.ReactElement => {
             color: `${theme.colors.gray9}`,
           },
         },
-
         error: {
           style: {
             background: `${theme.colors.red1}`,
             color: `${theme.colors.gray9}`,
           },
+        },
+        loading: {
+          style: {
+            background: `${theme.colors.green3}`,
+            color: `${theme.colors.gray9}`,
+          },
+          duration: 1000,
         },
         style: {
           minWidth: '120px',
